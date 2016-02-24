@@ -16,98 +16,7 @@ enum LocationManagerError: ErrorType {
     case CannotFetchLocation
 }
 
-typealias LocationCompletion = CLLocation? -> Void
 
-class LocationCompletionQueue: NSObject {
-    
-    let locationManager: LocationManager
-    
-    init(locationManager: LocationManager) {
-        self.locationManager = locationManager
-    }
-    
-    
-//    var lastBestLocation: CLLocation? = nil
-    var queueItems: [LocationCompletionQueueItem] = []
-    
-    var isActive: Bool {
-        return timer != nil
-    }
-    
-    private var timer: NSTimer?
-    
-    func pushCompletionItem(timeout: NSTimeInterval? = nil, completionItem: LocationCompletion) {
-        queueItems.append(LocationCompletionQueueItem(timeout: timeout, completion: completionItem))
-        
-        self.startTimerIfNeeded()
-    }
-    
-    // MARK: - Timer
-    
-    func startTimerIfNeeded() {
-        if timer != nil || queueItems.count == 0 {
-            return
-        }
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("tick"), userInfo: nil, repeats: true)
-    }
-    
-    func invalidateTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    func tick() {
-        
-        var toDelete: [LocationCompletionQueueItem] = []
-        
-        for item in queueItems {
-            if item.timeout == nil {
-                continue
-            } else if item.timeout == 0 {
-//                self.locationManager.currentLocation
-//                LocationManager.currentLocation.next(self.lastBestLocation)
-                item.completion(self.locationManager.lastKnownLocation)
-                toDelete.append(item)
-            } else {
-                item.timeout! -= 1
-            }
-        }
-        
-        for objectForDelete in toDelete {
-            if let index = queueItems.indexOf(objectForDelete) {
-                queueItems.removeAtIndex(index)
-            }
-        }
-        
-        if queueItems.count == 0 {
-            invalidateTimer()
-            locationManager.locationManager.stopUpdatingLocation()
-        }
-    }
-    
-    // MARK: - Run
-    
-    func completeWithLocation(location: CLLocation) {
-        invalidateTimer()
-        queueItems.forEach { $0.completion(location) }
-        queueItems.removeAll()
-    }
-}
-
-class LocationCompletionQueueItem: Equatable {
-    let completion: LocationCompletion
-    var timeout: NSTimeInterval?
-    
-    init(timeout: NSTimeInterval?, completion: LocationCompletion) {
-        self.completion = completion
-        self.timeout = timeout
-    }
-}
-
-func ==(lhs: LocationCompletionQueueItem, rhs: LocationCompletionQueueItem) -> Bool {
-    return lhs === rhs
-}
 
 public class LocationManager: NSObject, CLLocationManagerDelegate {
     
@@ -120,10 +29,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static let locationDidUpdatePermissionsNotification = "locationDidUpdatePermissions"
     
-//    private static let _locationManager = CLLocationManager()
-//    class func registerForPermissionsUpdate() {
-//        _locationManager.delegate = sharedManager
-//    }
     var currentLocation: CLLocation?
     
     override init() {
@@ -135,9 +40,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         self.askForLocationServicesIfNeeded()
     }
     
-//    @objc class func __bridged__currentLocation() -> CLLocation? {
-//        return currentLocation.value
-//    }
     
     public func isLocationStatusDetermined() -> Bool {
         return CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
@@ -146,14 +48,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     public func isLocationAvailable() -> Bool {
         return CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse)
     }
-    
-//    @objc class func __getCurrentLocation(timeout timeout: NSTimeInterval, force: Bool, completion: CLLocation? -> Void) {
-//        self.getCurrentLocation(timeout: timeout, force: force).then { location in
-//            completion(location)
-//        }.error { _ in
-//            completion(nil)
-//        }
-//    }
     
     public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, force: Bool = false) -> Promise<CLLocation> {
         return Promise { success, reject in
@@ -209,18 +103,12 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     // MARK: - CLLocationManagerDelegate
     
-//    private var locationCompletion: LocationCompletion?
-    private var lastKnownLocation: CLLocation?
+    internal var lastKnownLocation: CLLocation?
     
     func updateLocation(timeout timeout: NSTimeInterval?, completion: LocationCompletion) {
         
-//        let isActive = self.locationCompletionQueue.isActive
-        
         self.locationCompletionQueue.pushCompletionItem(timeout, completionItem: completion)
         
-//        if !isActive {
-//            self.locationManager.startUpdatingLocation()
-//        }
         self.startUpdatingLocationIfNeeded()
     }
     
@@ -231,7 +119,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last {
             self.lastKnownLocation = lastLocation
-//            self.locationCompletionQueue.lastBestLocation = lastLocation
             
             if self.validateLocation(lastLocation) {
                 self.locationCompletionQueue.completeWithLocation(lastLocation)
