@@ -2,7 +2,8 @@
 //  LocationCompletionQueue.swift
 //  Pods
 //
-//  Created by Jakub Knejzlik on 24/02/16.
+//  Created by Aleš Kocur on 20/05/15.
+//  Copyright © 2015 The Funtasty. All rights reserved.
 //
 //
 
