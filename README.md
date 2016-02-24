@@ -20,9 +20,17 @@ it, simply add the following line to your Podfile:
 pod "LocationManager"
 ```
 
-## Author
+## Example 
 
-Jakub Knejzlik, jakub.knejzlik@gmail.com
+```
+import LocationManager
+
+LocationManager.sharedManager.getCurrentLocation().then { location in
+    print("your current location: \(location)")
+}.error { error in
+    print("error getting location: \(error)")
+}
+```
 
 ## License
 
