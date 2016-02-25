@@ -17,14 +17,10 @@ class ViewController: UIViewController, LocationObserver {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        self.timer = NSTimer(timeInterval: 5.0, target: self, selector: "updateLocation", userInfo: nil, repeats: true)
-//        self.updateLocation()
         LocationManager.sharedManager.addLocationObserver(self)
     }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        self.timer?.invalidate()
-//        self.timer = nil
         LocationManager.sharedManager.removeLocationObserver(self)
     }
     
