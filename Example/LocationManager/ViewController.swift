@@ -11,9 +11,8 @@ import LocationManager
 import CoreLocation
 
 class ViewController: UIViewController, LocationObserver {
+
     @IBOutlet var locationLabel: UILabel!
-    
-    var timer: NSTimer? = nil
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
