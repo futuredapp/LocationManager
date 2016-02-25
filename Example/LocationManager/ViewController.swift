@@ -8,21 +8,24 @@
 
 import UIKit
 import LocationManager
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, LocationObserver {
     @IBOutlet var locationLabel: UILabel!
     
     var timer: NSTimer? = nil
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.timer = NSTimer(timeInterval: 5.0, target: self, selector: "updateLocation", userInfo: nil, repeats: true)
-        self.updateLocation()
+//        self.timer = NSTimer(timeInterval: 5.0, target: self, selector: "updateLocation", userInfo: nil, repeats: true)
+//        self.updateLocation()
+        LocationManager.sharedManager.addLocationObserver(self)
     }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.timer?.invalidate()
-        self.timer = nil
+//        self.timer?.invalidate()
+//        self.timer = nil
+        LocationManager.sharedManager.removeLocationObserver(self)
     }
     
     func updateLocation() {
@@ -33,5 +36,8 @@ class ViewController: UIViewController {
         }
     }
 
+    func didUpdateLocation(manager: LocationManager, location: CLLocation) {
+        self.locationLabel.text = "\(location.coordinate.latitude) \(location.coordinate.longitude)"
+    }
 }
 

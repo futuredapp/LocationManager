@@ -23,10 +23,13 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     public static let sharedManager = LocationManager()
     
     private let locationManager = CLLocationManager()
+    
     lazy private var locationCompletionQueue: LocationCompletionQueue = {
         let queue = LocationCompletionQueue(locationManager: self)
         return queue
     }()
+    
+    private var locationObservers: [LocationObserver] = []
     
     static let locationDidUpdatePermissionsNotification = "locationDidUpdatePermissions"
     
@@ -50,6 +53,38 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         return CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse)
     }
     
+    func askForLocationServicesIfNeeded() {
+        if self.isLocationStatusDetermined() {
+            return
+        }
+        
+        if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationAlwaysUsageDescription") != nil {
+            if self.locationManager.respondsToSelector("requestAlwaysAuthorization"){
+                self.locationManager.requestAlwaysAuthorization()
+            }
+        } else if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationWhenInUseUsageDescription") != nil {
+            if self.locationManager.respondsToSelector("requestWhenInUseAuthorization") {
+                self.locationManager.requestWhenInUseAuthorization();
+            }
+        }else{
+            print("[LocationManager ERROR] The keys NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription are not defined in your tiapp.xml.  Starting with iOS8 this are required.")
+        }
+    }
+    
+    
+    func startUpdatingLocationIfNeeded() {
+        if self.locationCompletionQueue.queueItems.count > 0 || self.locationObservers.count > 0 {
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    func stopUpdatingLocationIfPossible() {
+        if self.locationCompletionQueue.queueItems.count == 0 && self.locationObservers.count == 0 {
+            self.locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    // MARK: - current location
+    
     public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, force: Bool = false) -> Promise<CLLocation> {
         return Promise { success, reject in
             
@@ -71,36 +106,25 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             }
         }
     }
+
+    // MARK: - location observers
     
-    func askForLocationServicesIfNeeded() {
-        if self.isLocationStatusDetermined() {
-            return
+    public func addLocationObserver(observer: LocationObserver) {
+        self.locationObservers.append(observer)
+        
+        self.startUpdatingLocationIfNeeded()
+    }
+    
+    public func removeLocationObserver(observer: LocationObserver) {
+        if let index = self.locationObservers.indexOf({ (_observer) -> Bool in
+            return observer === _observer
+        }) {
+            self.locationObservers.removeAtIndex(index)
         }
         
-        if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationAlwaysUsageDescription") != nil {
-            if self.locationManager.respondsToSelector("requestAlwaysAuthorization"){
-                self.locationManager.requestAlwaysAuthorization()
-            }
-        } else if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationWhenInUseUsageDescription") != nil {
-            if self.locationManager.respondsToSelector("requestWhenInUseAuthorization") {
-                self.locationManager.requestWhenInUseAuthorization();
-            }
-        }else{
-            print("[LocationManager ERROR] The keys NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription are not defined in your tiapp.xml.  Starting with iOS8 this are required.")
-        }
+        self.stopUpdatingLocationIfPossible()
     }
-    
-    
-    func startUpdatingLocationIfNeeded() {
-        if self.locationCompletionQueue.queueItems.count > 0 {
-            self.locationManager.startUpdatingLocation()
-        }
-    }
-    func stopUpdatingLocationIfPossible() {
-        if self.locationCompletionQueue.queueItems.count == 0 {
-            self.locationManager.stopUpdatingLocation()
-        }
-    }
+
     
     // MARK: - CLLocationManagerDelegate
     
@@ -123,12 +147,17 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             
             if self.validateLocation(lastLocation) {
                 self.locationCompletionQueue.completeWithLocation(lastLocation)
+                
+                for observer in self.locationObservers {
+                    observer.didUpdateLocation(self, location: lastLocation)
+                }
             }
         }
         self.stopUpdatingLocationIfPossible()
     }
     
     func validateLocation(location: CLLocation) -> Bool {
+        print(location,location.horizontalAccuracy,location.verticalAccuracy)
         return location.horizontalAccuracy <= 100 && location.verticalAccuracy <= 100
     }
     
