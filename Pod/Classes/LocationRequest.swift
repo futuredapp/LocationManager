@@ -39,13 +39,14 @@ class LocationRequest: NSObject {
         return true
     }
     
-    func completeWithLocation(location: CLLocation?, force: Bool = false) {
+    func completeWithLocation(location: CLLocation?, force: Bool = false) -> Bool {
         guard let _location = location where force || self.validateLocation(_location) else {
-            return
+            return false
         }
         self.completion(location)
         self.timer?.invalidate()
         self.timer = nil
+        return true
     }
     
     

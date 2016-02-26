@@ -170,15 +170,14 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         if let lastLocation = locations.last {
             self.lastKnownLocation = lastLocation
             
-            if self.validateLocation(lastLocation) {
-                for (_,request) in self.locationRequests.enumerate() {
-                    request.completeWithLocation(lastLocation)
+            for (_,request) in self.locationRequests.enumerate() {
+                if request.completeWithLocation(lastLocation) {
                     self.removeLocationRequest(request)
                 }
-                
-                for observer in self.locationObservers {
-                    observer.updateLocation(lastLocation)
-                }
+            }
+            
+            for observer in self.locationObservers {
+                observer.updateLocation(lastLocation)
             }
             self.stopUpdatingLocationIfPossible()
         }
@@ -192,11 +191,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         if let index = self.locationRequests.indexOf(request) {
             self.locationRequests.removeAtIndex(index)
         }
-    }
-    
-    func validateLocation(location: CLLocation) -> Bool {
-        print(location,location.horizontalAccuracy,location.verticalAccuracy)
-        return location.horizontalAccuracy <= 100 && location.verticalAccuracy <= 100
     }
     
 }
