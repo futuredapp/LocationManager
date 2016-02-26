@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func refreshLocation(sender: AnyObject) {
+        self.locationRequestLabel.text = "..."
         LocationManager.sharedManager.getCurrentLocation().then { location in
             self.locationRequestLabel.text = "\(location.coordinate.latitude) \(location.coordinate.longitude)"
         }.error { error in
