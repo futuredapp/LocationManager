@@ -30,9 +30,9 @@ import LocationManager
 let desiredAccuracy: CLLocationAccuracy? = kCLLocationAccuracyBestForNavigation
 
 LocationManager.sharedManager.getCurrentLocation(desiredAccuracy: desiredAccuracy).then { location in
-print("your current location: \(location)")
+    print("your current location: \(location)")
 }.error { error in
-print("error getting location: \(error)")
+    print("error getting location: \(error)")
 }
 ```
 
