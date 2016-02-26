@@ -12,7 +12,7 @@ import CoreLocation
 
 typealias LocationCompletion = CLLocation? -> Void
 
-class LocationRequest: Equatable {
+class LocationRequest: NSObject {
     let completion: LocationCompletion
     let locationManager: LocationManager
     var desiredAccuracy: CLLocationAccuracy?
@@ -24,6 +24,8 @@ class LocationRequest: Equatable {
         self.timeout = timeout
         self.desiredAccuracy = desiredAccuracy
         self.locationManager = locationManager
+        
+        super.init()
         
         if let timeout = timeout {
             self.timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: Selector("didTimeout"), userInfo: nil, repeats: false)

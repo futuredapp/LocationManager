@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         LocationManager.sharedManager.addLocationObserver(self.observer)
         LocationManager.sharedManager.addLocationObserver(self.observer10, distanceFilter: 10)
         LocationManager.sharedManager.addLocationObserver(self.observer50, distanceFilter: 50)
+        self.refreshLocation(self.locationLabel)
     }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
