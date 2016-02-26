@@ -22,14 +22,37 @@ pod "LocationManager"
 
 ## Example 
 
+### Getting current location
+
 ```
 import LocationManager
 
-LocationManager.sharedManager.getCurrentLocation().then { location in
-    print("your current location: \(location)")
+let desiredAccuracy: CLLocationAccuracy? = kCLLocationAccuracyBestForNavigation
+
+LocationManager.sharedManager.getCurrentLocation(desiredAccuracy: desiredAccuracy).then { location in
+print("your current location: \(location)")
 }.error { error in
-    print("error getting location: \(error)")
+print("error getting location: \(error)")
 }
+```
+
+### Observing location
+
+```
+import LocationManager
+
+class MyObserver: LocationObserver {
+    func didUpdateLocation(manager: LocationManager, location: CLLocation) {
+        print("your location changed \(location)")
+    }
+}
+
+let desiredAccuracy: CLLocationAccuracy? = kCLLocationAccuracyBestForNavigation
+let distanceFilter: CLLocationDistance? = 50 // meters
+let observer = MyObserver()
+
+LocationManager.sharedManager.addLocationObserver(observer,desiredAccuracy: desiredAccuracy,distanceFilter: distanceFilter)
+
 ```
 
 ## License
