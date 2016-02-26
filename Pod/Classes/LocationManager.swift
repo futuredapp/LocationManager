@@ -24,12 +24,13 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     
-    lazy private var locationCompletionQueue: LocationCompletionQueue = {
-        let queue = LocationCompletionQueue(locationManager: self)
-        return queue
-    }()
+//    lazy private var locationCompletionQueue: LocationCompletionQueue = {
+//        let queue = LocationCompletionQueue(locationManager: self)
+//        return queue
+//    }()
     
-    private var locationObservers: [LocationObserver] = []
+    private var locationRequests: [LocationRequest] = []
+    private var locationObservers: [LocationObserverItem] = []
     
     static let locationDidUpdatePermissionsNotification = "locationDidUpdatePermissions"
     
@@ -40,7 +41,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.delegate = self
         self.locationManager.distanceFilter = 0
         self.locationManager.desiredAccuracy = 0
-        
         self.askForLocationServicesIfNeeded()
     }
     
@@ -73,19 +73,21 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     
     func startUpdatingLocationIfNeeded() {
-        if self.locationCompletionQueue.queueItems.count > 0 || self.locationObservers.count > 0 {
+        if self.locationRequests.count > 0 || self.locationObservers.count > 0 {
             self.locationManager.startUpdatingLocation()
         }
+        self.updateLocationManagerSettings()
     }
     func stopUpdatingLocationIfPossible() {
-        if self.locationCompletionQueue.queueItems.count == 0 && self.locationObservers.count == 0 {
+        if self.locationRequests.count == 0 && self.locationObservers.count == 0 {
             self.locationManager.stopUpdatingLocation()
         }
+        self.updateLocationManagerSettings()
     }
     
-    // MARK: - current location
+    // MARK: - location requests
     
-    public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, force: Bool = false) -> Promise<CLLocation> {
+    public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, desiredAccuracy: CLLocationAccuracy? = nil, force: Bool = false) -> Promise<CLLocation> {
         return Promise { success, reject in
             
             if !isLocationAvailable() && self.isLocationStatusDetermined() {
@@ -96,7 +98,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             if let currentLocation = currentLocation where !force {
                 success(currentLocation)
             } else {
-                self.updateLocation(timeout: timeout) { location in
+                self.updateLocation(timeout: timeout,desiredAccuracy: desiredAccuracy) { location in
                     if let location = location {
                         success(location)
                     } else {
@@ -107,10 +109,33 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
+    
+    func updateLocationManagerSettings() {
+        let requestsDesiredAccuracy = self.locationRequests.map { (request) -> CLLocationAccuracy in
+            return request.desiredAccuracy ?? 0
+        }.minElement() ?? 0
+    
+        let observersDesiredAccuracy = self.locationObservers.map { (observer) -> CLLocationAccuracy in
+            return observer.desiredAccuracy ?? 0
+        }.minElement() ?? 0
+        
+        self.locationManager.desiredAccuracy = min(requestsDesiredAccuracy,observersDesiredAccuracy)
+
+        if self.locationRequests.count == 0 {
+            let observersDistanceFilter = self.locationObservers.map { (observer) -> CLLocationAccuracy in
+                return observer.distanceFilter ?? 0
+            }.minElement() ?? 0
+            
+            self.locationManager.distanceFilter = observersDistanceFilter
+        }
+    }
+    
+    
     // MARK: - location observers
     
-    public func addLocationObserver(observer: LocationObserver) {
-        self.locationObservers.append(observer)
+    public func addLocationObserver(observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil) {
+        let item = LocationObserverItem(locationObserver: observer, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter)
+        self.locationObservers.append(item)
         
         self.startUpdatingLocationIfNeeded()
     }
@@ -130,9 +155,9 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     internal var lastKnownLocation: CLLocation?
     
-    func updateLocation(timeout timeout: NSTimeInterval?, completion: LocationCompletion) {
+    func updateLocation(timeout timeout: NSTimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: LocationCompletion) {
         
-        self.locationCompletionQueue.pushCompletionItem(timeout, completionItem: completion)
+        self.locationRequests.append(LocationRequest(timeout: timeout, desiredAccuracy: desiredAccuracy, completion: completion, locationManager: self))
         
         self.startUpdatingLocationIfNeeded()
     }
@@ -146,14 +171,27 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             self.lastKnownLocation = lastLocation
             
             if self.validateLocation(lastLocation) {
-                self.locationCompletionQueue.completeWithLocation(lastLocation)
+                for (_,request) in self.locationRequests.enumerate() {
+                    request.completeWithLocation(lastLocation)
+                    self.removeLocationRequest(request)
+                }
                 
                 for observer in self.locationObservers {
-                    observer.didUpdateLocation(self, location: lastLocation)
+                    observer.updateLocation(lastLocation)
                 }
             }
+            self.stopUpdatingLocationIfPossible()
         }
-        self.stopUpdatingLocationIfPossible()
+    }
+    
+    internal func locationRequestDidTimeout(request: LocationRequest) {
+        self.removeLocationRequest(request)
+    }
+    
+    internal func removeLocationRequest(request: LocationRequest) {
+        if let index = self.locationRequests.indexOf(request) {
+            self.locationRequests.removeAtIndex(index)
+        }
     }
     
     func validateLocation(location: CLLocation) -> Bool {

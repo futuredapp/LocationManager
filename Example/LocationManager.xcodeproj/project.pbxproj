@@ -14,6 +14,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		CC07BF9FBC2A3C3673147200 /* Pods_LocationManager_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6A9CCE596BAC7E7CF7A1BC /* Pods_LocationManager_Example.framework */; };
+		EE16D7D61C80784300D93EC6 /* LocationObserverLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE16D7D51C80784300D93EC6 /* LocationObserverLabel.swift */; };
 		F1C9F95A5E1A622B4D3BB196 /* Pods_LocationManager_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4916F7C31FB6364BE4886970 /* Pods_LocationManager_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		8DFC1C4287114D8A2D4769C0 /* LocationManager.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LocationManager.podspec; path = ../LocationManager.podspec; sourceTree = "<group>"; };
 		C23A149381E8106E79868636 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		D60DA8886D0A619E49C94B7C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		EE16D7D51C80784300D93EC6 /* LocationObserverLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationObserverLabel.swift; sourceTree = "<group>"; };
 		FB291CA350F4308F155662BA /* Pods-LocationManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationManager_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				EE16D7D51C80784300D93EC6 /* LocationObserverLabel.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -361,6 +364,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				EE16D7D61C80784300D93EC6 /* LocationObserverLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
