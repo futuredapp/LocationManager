@@ -157,9 +157,12 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func updateLocation(timeout timeout: NSTimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: LocationCompletion) {
         
-        self.locationRequests.append(LocationRequest(timeout: timeout, desiredAccuracy: desiredAccuracy, completion: completion, locationManager: self))
+        let request = LocationRequest(timeout: timeout, desiredAccuracy: desiredAccuracy, completion: completion, locationManager: self)
         
-        self.startUpdatingLocationIfNeeded()
+        if !request.completeWithLocation(self.lastKnownLocation) {
+            self.locationRequests.append(request)
+            self.startUpdatingLocationIfNeeded()
+        }
     }
     
     public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

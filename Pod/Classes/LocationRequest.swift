@@ -33,6 +33,9 @@ class LocationRequest: NSObject {
     }
     
     func validateLocation(location: CLLocation) -> Bool {
+        if location.timestamp.timeIntervalSinceNow < -(self.timeout ?? 30) {
+            return false
+        }
         if let desiredAccuracy = self.desiredAccuracy {
             return location.horizontalAccuracy <= desiredAccuracy && location.verticalAccuracy <= desiredAccuracy
         }
@@ -40,8 +43,10 @@ class LocationRequest: NSObject {
     }
     
     func completeWithLocation(location: CLLocation?, force: Bool = false) -> Bool {
-        guard let _location = location where force || self.validateLocation(_location) else {
-            return false
+        if !force {
+            guard let _location = location where self.validateLocation(_location) else {
+                return false
+            }
         }
         self.completion(location)
         self.timer?.invalidate()
