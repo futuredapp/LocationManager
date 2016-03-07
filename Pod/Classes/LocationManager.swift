@@ -53,7 +53,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         return CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse)
     }
     
-    func askForLocationServicesIfNeeded() {
+    public func askForLocationServicesIfNeeded() {
         if self.isLocationStatusDetermined() {
             return
         }
