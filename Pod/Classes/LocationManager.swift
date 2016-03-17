@@ -128,7 +128,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     // MARK: - location requests
     
     public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, desiredAccuracy: CLLocationAccuracy? = nil, force: Bool = false) -> Promise<CLLocation> {
-        print("get current location")
         return self.askForLocationServicesIfNeeded().then { (status) -> Promise<CLLocation> in
             if !self.isLocationAvailable() {
                 throw LocationManagerError.LocationServiceDisabled
@@ -138,7 +137,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
                     success(currentLocation)
                 } else {
                     self.updateLocation(timeout: timeout,desiredAccuracy: desiredAccuracy) { location in
-                        print("get current location done")
                         if let location = location {
                             success(location)
                         } else {

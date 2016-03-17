@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LocationManager"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "A short description of LocationManager."
 
 # This description is used to generate tags and improve search results.
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-                        CoreLocation wrapper for handling locations with ease
+                        CoreLocation wrapper for handling locations with ease. Get location and attach location observers.
                        DESC
 
   s.homepage         = "https://github.com/thefuntasty/LocationManager"
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Jakub Knejzlik" => "jakub.knejzlik@gmail.com" }
   s.source           = { :git => "https://github.com/thefuntasty/LocationManager.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/thefuntasty'
+#s.social_media_url = 'https://twitter.com/thefuntasty'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
