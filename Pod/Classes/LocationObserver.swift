@@ -15,7 +15,7 @@ public protocol LocationObserver: AnyObject {
     
 }
 
-class LocationObserverItem: Equatable {
+class LocationObserverItem: NSObject {
     let observer: LocationObserver
     let locationManager: LocationManager
     let desiredAccuracy: CLLocationAccuracy?

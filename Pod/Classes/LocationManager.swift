@@ -16,32 +16,33 @@ enum LocationManagerError: ErrorType {
     case CannotFetchLocation
 }
 
+enum LocationManagerAuthorizationError: ErrorType {
+    case KeyInPlistMissing
+}
+
 
 
 public class LocationManager: NSObject, CLLocationManagerDelegate {
     
+    static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
+    
     public static let sharedManager = LocationManager()
-    
-    private let locationManager = CLLocationManager()
-    
-//    lazy private var locationCompletionQueue: LocationCompletionQueue = {
-//        let queue = LocationCompletionQueue(locationManager: self)
-//        return queue
-//    }()
-    
-    private var locationRequests: [LocationRequest] = []
-    private var locationObservers: [LocationObserverItem] = []
-    
-    static let locationDidUpdatePermissionsNotification = "locationDidUpdatePermissions"
-    
+
     var currentLocation: CLLocation?
     
+    private var locationRequests: [LocationRequest] = []
+    private var locationObservers: Set<LocationObserverItem> = []
+    
+    private var askForLocationServicesFulfillments: [AuthorizationFulfillment] = []
+    typealias AuthorizationFulfillment = CLAuthorizationStatus -> Void
+
+    private let locationManager = CLLocationManager()
+
     override init() {
         super.init()
         self.locationManager.delegate = self
         self.locationManager.distanceFilter = 0
         self.locationManager.desiredAccuracy = 0
-        self.askForLocationServicesIfNeeded()
     }
     
     
@@ -53,27 +54,46 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         return CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedAlways || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse)
     }
     
-    func askForLocationServicesIfNeeded() {
-        if self.isLocationStatusDetermined() {
-            return
+    /**
+     * Checks for authorization status of location services
+     * returns promise for authorization status on success, LocationManagerAuthorizationError on fail
+     */
+    public func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus>{
+        return Promise { fulfill, reject in
+            if self.isLocationStatusDetermined() {
+                return fulfill(CLLocationManager.authorizationStatus())
+            }
+            self.askWithFulfillment({ (status: CLAuthorizationStatus) -> Void in
+                fulfill(status)
+            },rejection: reject)
         }
-        
-        if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationAlwaysUsageDescription") != nil {
-            if self.locationManager.respondsToSelector("requestAlwaysAuthorization"){
-                self.locationManager.requestAlwaysAuthorization()
+    }
+    
+    private func askWithFulfillment(fulfillment: AuthorizationFulfillment, rejection: (ErrorType) -> Void) -> Void {
+        var rejected = false
+        if self.askForLocationServicesFulfillments.count == 0 {
+            if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationAlwaysUsageDescription") != nil {
+                if self.locationManager.respondsToSelector("requestAlwaysAuthorization"){
+                    self.locationManager.requestAlwaysAuthorization()
+                }
+            } else if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationWhenInUseUsageDescription") != nil {
+                if self.locationManager.respondsToSelector("requestWhenInUseAuthorization") {
+                    self.locationManager.requestWhenInUseAuthorization();
+                }
+            }else{
+                rejection(LocationManagerAuthorizationError.KeyInPlistMissing)
+                rejected = true
             }
-        } else if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationWhenInUseUsageDescription") != nil {
-            if self.locationManager.respondsToSelector("requestWhenInUseAuthorization") {
-                self.locationManager.requestWhenInUseAuthorization();
-            }
-        }else{
-            print("[LocationManager ERROR] The keys NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription are not defined in your tiapp.xml.  Starting with iOS8 this are required.")
+        }
+        if !rejected {
+            self.askForLocationServicesFulfillments.append(fulfillment)
         }
     }
     
     
     func startUpdatingLocationIfNeeded() {
         if self.locationRequests.count > 0 || self.locationObservers.count > 0 {
+            self.askForLocationServicesIfNeeded()
             self.locationManager.startUpdatingLocation()
         }
         self.updateLocationManagerSettings()
@@ -85,57 +105,66 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         self.updateLocationManagerSettings()
     }
     
-    // MARK: - location requests
-    
-    public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, desiredAccuracy: CLLocationAccuracy? = nil, force: Bool = false) -> Promise<CLLocation> {
-        return Promise { success, reject in
-            
-            if !isLocationAvailable() && self.isLocationStatusDetermined() {
-                reject(LocationManagerError.LocationServiceDisabled)
-                return
-            }
-            
-            if let currentLocation = currentLocation where !force {
-                success(currentLocation)
-            } else {
-                self.updateLocation(timeout: timeout,desiredAccuracy: desiredAccuracy) { location in
-                    if let location = location {
-                        success(location)
-                    } else {
-                        reject(LocationManagerError.CannotFetchLocation)
-                    }
-                }
-            }
-        }
-    }
-
-    
     func updateLocationManagerSettings() {
         let requestsDesiredAccuracy = self.locationRequests.map { (request) -> CLLocationAccuracy in
             return request.desiredAccuracy ?? 0
-        }.minElement() ?? 0
-    
+            }.minElement() ?? 0
+        
         let observersDesiredAccuracy = self.locationObservers.map { (observer) -> CLLocationAccuracy in
             return observer.desiredAccuracy ?? 0
-        }.minElement() ?? 0
+            }.minElement() ?? 0
         
         self.locationManager.desiredAccuracy = min(requestsDesiredAccuracy,observersDesiredAccuracy)
-
+        
         if self.locationRequests.count == 0 {
             let observersDistanceFilter = self.locationObservers.map { (observer) -> CLLocationAccuracy in
                 return observer.distanceFilter ?? 0
-            }.minElement() ?? 0
+                }.minElement() ?? 0
             
             self.locationManager.distanceFilter = observersDistanceFilter
         }
     }
     
+    // MARK: - location requests
+    
+    public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, desiredAccuracy: CLLocationAccuracy? = nil, force: Bool = false) -> Promise<CLLocation> {
+        print("get current location")
+        return self.askForLocationServicesIfNeeded().then { (status) -> Promise<CLLocation> in
+            if !self.isLocationAvailable() {
+                throw LocationManagerError.LocationServiceDisabled
+            }
+            return Promise { success, reject in
+                if let currentLocation = self.currentLocation where !force {
+                    success(currentLocation)
+                } else {
+                    self.updateLocation(timeout: timeout,desiredAccuracy: desiredAccuracy) { location in
+                        print("get current location done")
+                        if let location = location {
+                            success(location)
+                        } else {
+                            reject(LocationManagerError.CannotFetchLocation)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    internal func locationRequestDidTimeout(request: LocationRequest) {
+        self.removeLocationRequest(request)
+    }
+    
+    internal func removeLocationRequest(request: LocationRequest) {
+        if let index = self.locationRequests.indexOf(request) {
+            self.locationRequests.removeAtIndex(index)
+        }
+    }
     
     // MARK: - location observers
     
     public func addLocationObserver(observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil) {
         let item = LocationObserverItem(locationObserver: observer, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter)
-        self.locationObservers.append(item)
+        self.locationObservers.insert(item)
         
         self.startUpdatingLocationIfNeeded()
     }
@@ -166,7 +195,12 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        NSNotificationCenter.defaultCenter().postNotificationName(LocationManager.locationDidUpdatePermissionsNotification, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(LocationManager.locationDidChangeAuthorizationStatusNotification, object: nil)
+        if status != .NotDetermined {
+            for fulfillment in self.askForLocationServicesFulfillments {
+                fulfillment(status)
+            }
+        }
     }
     
     public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -183,16 +217,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
                 observer.updateLocation(lastLocation)
             }
             self.stopUpdatingLocationIfPossible()
-        }
-    }
-    
-    internal func locationRequestDidTimeout(request: LocationRequest) {
-        self.removeLocationRequest(request)
-    }
-    
-    internal func removeLocationRequest(request: LocationRequest) {
-        if let index = self.locationRequests.indexOf(request) {
-            self.locationRequests.removeAtIndex(index)
         }
     }
     
