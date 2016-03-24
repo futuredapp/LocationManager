@@ -1,8 +1,10 @@
 import UIKit
 import XCTest
+import CoreLocation
 import LocationManager
 
-class Tests: XCTestCase {
+
+class Tests: XCTestCase, LocationObserver {
     
     override func setUp() {
         super.setUp()
@@ -14,16 +16,25 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testObservers() {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
+        
+        let manager = LocationManager()
+        
+        manager.addLocationObserver(self)
+        
+        XCTAssertEqual(manager.locationObserversCount, 1)
+        
+        manager.removeLocationObserver(self)
+        
+        XCTAssertEqual(manager.locationObserversCount, 0)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+    // MARK: LocationObserver delegate
+    
+    func didUpdateLocation(manager: LocationManager, location: CLLocation) {
+        
     }
     
 }

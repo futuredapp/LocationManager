@@ -33,12 +33,16 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     private var locationRequests: [LocationRequest] = []
     private var locationObservers: Set<LocationObserverItem> = []
     
+    public var locationObserversCount: Int {
+        return self.locationObservers.count
+    }
+    
     private var askForLocationServicesFulfillments: [AuthorizationFulfillment] = []
     typealias AuthorizationFulfillment = CLAuthorizationStatus -> Void
 
     private let locationManager = CLLocationManager()
 
-    override init() {
+    public override init() {
         super.init()
         self.locationManager.delegate = self
         self.locationManager.distanceFilter = 0
@@ -169,7 +173,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     public func removeLocationObserver(observer: LocationObserver) {
         if let index = self.locationObservers.indexOf({ (_observer) -> Bool in
-            return observer === _observer
+            return observer === _observer.observer
         }) {
             self.locationObservers.removeAtIndex(index)
         }

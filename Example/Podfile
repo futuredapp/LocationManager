@@ -7,6 +7,4 @@ end
 
 target 'LocationManager_Tests', :exclusive => true do
   pod 'LocationManager', :path => '../'
-
-  pod 'FBSnapshotTestCase'
 end
