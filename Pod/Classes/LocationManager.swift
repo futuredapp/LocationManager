@@ -176,9 +176,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         self.stopUpdatingLocationIfPossible()
     }
 
-    
-    // MARK: - CLLocationManagerDelegate
-    
     internal var lastKnownLocation: CLLocation?
     
     func updateLocation(timeout timeout: NSTimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: LocationCompletion) {
@@ -190,6 +187,8 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             self.startUpdatingLocationIfNeeded()
         }
     }
+    
+    // MARK: - CLLocationManagerDelegate
     
     public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         NSNotificationCenter.defaultCenter().postNotificationName(LocationManager.locationDidChangeAuthorizationStatusNotification, object: nil)
