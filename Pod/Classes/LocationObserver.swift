@@ -8,7 +8,6 @@
 
 import CoreLocation
 
-
 public protocol LocationObserver: AnyObject {
     
     func didUpdateLocation(manager: LocationManager, location: CLLocation)

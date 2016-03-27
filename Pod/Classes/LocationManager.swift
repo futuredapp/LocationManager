@@ -10,7 +10,6 @@
 import CoreLocation
 import PromiseKit
 
-
 enum LocationManagerError: ErrorType {
     case LocationServiceDisabled
     case CannotFetchLocation
@@ -19,8 +18,6 @@ enum LocationManagerError: ErrorType {
 enum LocationManagerAuthorizationError: ErrorType {
     case KeyInPlistMissing
 }
-
-
 
 public class LocationManager: NSObject, CLLocationManagerDelegate {
     
@@ -48,7 +45,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.distanceFilter = 0
         self.locationManager.desiredAccuracy = 0
     }
-    
     
     public func isLocationStatusDetermined() -> Bool {
         return CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
@@ -93,7 +89,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             self.askForLocationServicesFulfillments.append(fulfillment)
         }
     }
-    
     
     func startUpdatingLocationIfNeeded() {
         if self.locationRequests.count > 0 || self.locationObservers.count > 0 {
