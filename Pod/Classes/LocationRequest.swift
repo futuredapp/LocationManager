@@ -28,7 +28,7 @@ class LocationRequest: NSObject {
         super.init()
         
         if let timeout = timeout {
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: Selector("didTimeout"), userInfo: nil, repeats: false)
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: #selector(didTimeout), userInfo: nil, repeats: false)
         }
     }
     
