@@ -113,14 +113,19 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             return observer.desiredAccuracy ?? 0
             }.minElement() ?? 0
         
-        self.locationManager.desiredAccuracy = min(requestsDesiredAccuracy,observersDesiredAccuracy)
+        let desiredAccuracy = min(requestsDesiredAccuracy,observersDesiredAccuracy)
+        if self.locationManager.desiredAccuracy != desiredAccuracy {
+           self.locationManager.desiredAccuracy = desiredAccuracy
+        }
         
         if self.locationRequests.count == 0 {
             let observersDistanceFilter = self.locationObservers.map { (observer) -> CLLocationAccuracy in
                 return observer.distanceFilter ?? 0
                 }.minElement() ?? 0
             
-            self.locationManager.distanceFilter = observersDistanceFilter
+            if self.locationManager.distanceFilter != observersDistanceFilter {
+                self.locationManager.distanceFilter = observersDistanceFilter
+            }
         }
     }
     
@@ -215,5 +220,4 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             self.stopUpdatingLocationIfPossible()
         }
     }
-    
 }
