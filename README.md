@@ -39,8 +39,6 @@ LocationManager.sharedManager.getCurrentLocation(desiredAccuracy: desiredAccurac
 When using location observing, you can use these parameters:
 
 * `desiredAccuracy: CLLocationAccuracy?` - specifies desired accuracy (see CoreLocation documentations for more info)
-* `distanceFilter: CLLocationDistance?` - filter distances (desired distance between new location and previous location)
-
 
 ### Observing location
 
