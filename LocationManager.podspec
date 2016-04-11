@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LocationManager"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "CoreLocation wrapper for handling locations with ease."
 
 # This description is used to generate tags and improve search results.
