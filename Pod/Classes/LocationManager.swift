@@ -89,11 +89,11 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         var rejected = false
         if self.askForLocationServicesFulfillments.count == 0 {
             if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationAlwaysUsageDescription") != nil {
-                if self.locationManager.respondsToSelector("requestAlwaysAuthorization"){
+                if self.locationManager.respondsToSelector(#selector(CLLocationManager.requestAlwaysAuthorization)){
                     self.locationManager.requestAlwaysAuthorization()
                 }
             } else if NSBundle.mainBundle().objectForInfoDictionaryKey("NSLocationWhenInUseUsageDescription") != nil {
-                if self.locationManager.respondsToSelector("requestWhenInUseAuthorization") {
+                if self.locationManager.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)) {
                     self.locationManager.requestWhenInUseAuthorization();
                 }
             }else{
