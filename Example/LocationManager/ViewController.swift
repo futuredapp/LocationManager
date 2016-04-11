@@ -30,8 +30,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func refreshLocation(sender: AnyObject) {
-        self.locationRequestLabel.text = "..."
-        LocationManager.sharedManager.getCurrentLocation().then { location in
+        self.locationRequestLabel.text = "...\n"
+        LocationManager.getCurrentLocation().then { location in
             self.locationRequestLabel.text = "lat: \(location.coordinate.latitude)\nlng: \(location.coordinate.longitude)"
         }.error { error in
             self.locationRequestLabel.text = "cannot fetch location"
@@ -47,14 +47,14 @@ class ViewController: UIViewController {
     
     func updateValuesAndInitializeObserver() {
         if let currentObserver = self.observer {
-            LocationManager.sharedManager.removeLocationObserver(currentObserver)
+            LocationManager.removeLocationObserver(currentObserver)
             self.observer = nil
         }
         let observer = LocationObserverLabel(label: self.locationLabel)
         self.observer = observer
         let minimumTimeInterval: Double? = self.minimumIntervalSlider.value == 0 ? nil : Double(self.minimumIntervalSlider.value)
         let maximumTimeInterval: Double? = self.maximumIntervalSlider.value == 0 ? nil : Double(self.maximumIntervalSlider.value)
-        LocationManager.sharedManager.addLocationObserver(observer, distanceFilter: Double(self.distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+        LocationManager.addLocationObserver(observer, distanceFilter: Double(self.distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
     }
 }
 

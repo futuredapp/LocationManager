@@ -197,7 +197,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     public class func removeLocationObserver(observer: LocationObserver) {
-        self.removeLocationObserver(observer)
+        self.sharedManager.removeLocationObserver(observer)
     }
     
     public func removeLocationObserver(observer: LocationObserver) {
