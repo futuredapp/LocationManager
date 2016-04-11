@@ -36,6 +36,12 @@ LocationManager.sharedManager.getCurrentLocation(desiredAccuracy: desiredAccurac
 }
 ```
 
+When using location observing, you can use these parameters:
+
+* `desiredAccuracy: CLLocationAccuracy?` - specifies desired accuracy (see CoreLocation documentations for more info)
+* `distanceFilter: CLLocationDistance?` - filter distances (desired distance between new location and previous location)
+
+
 ### Observing location
 
 ```
@@ -54,6 +60,20 @@ let observer = MyObserver()
 LocationManager.sharedManager.addLocationObserver(observer,desiredAccuracy: desiredAccuracy,distanceFilter: distanceFilter)
 
 ```
+
+When using location observing, you can use these parameters:
+
+* `desiredAccuracy: CLLocationAccuracy?` - specifies desired accuracy (see CoreLocation documentations for more info)
+* `distanceFilter: CLLocationDistance?` - filter distances (desired distance between new location and previous location)
+* `minimumTimeInterval: NSTimeInterval?` - specifies how often should location update method should be called (minimum interval between calls - max frequency)
+* `maximumTimeInterval: NSTimeInterval?` - forces location update calls event there's no new location available (maximum interval between calls)
+
+
+## Distance Filter and Desired Accuracy
+
+`LocationManager` efeciently uses filter and accuracy of all requests and observers and calculates maximum required values to prevent battery draining. 
+
+For example if you two observers with 50m and 100m distance filter, the overal distance filter 50m. When you remove observer with 50m filter, the overal distance filter is recalculated to maximum required value (which is 100m). The same applies to desiredAccuracy.
 
 ## License
 
