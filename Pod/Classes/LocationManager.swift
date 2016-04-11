@@ -30,6 +30,9 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     private var locationRequests: [LocationRequest] = []
     private var locationObservers: Set<LocationObserverItem> = []
     
+    public static var locationObserversCount: Int {
+        return self.sharedManager.locationObserversCount
+    }
     public var locationObserversCount: Int {
         return self.locationObservers.count
     }
@@ -46,8 +49,16 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = 0
     }
     
+    public class func isLocationStatusDetermined() -> Bool {
+        return self.sharedManager.isLocationStatusDetermined()
+    }
+    
     public func isLocationStatusDetermined() -> Bool {
         return CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
+    }
+    
+    public class func isLocationAvailable() -> Bool {
+        return self.sharedManager.isLocationAvailable()
     }
     
     public func isLocationAvailable() -> Bool {
@@ -58,6 +69,11 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
      * Checks for authorization status of location services
      * returns promise for authorization status on success, LocationManagerAuthorizationError on fail
      */
+    
+    public class func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus>{
+        return self.sharedManager.askForLocationServicesIfNeeded()
+    }
+    
     public func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus>{
         return Promise { fulfill, reject in
             if self.isLocationStatusDetermined() {
@@ -97,6 +113,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         }
         self.updateLocationManagerSettings()
     }
+    
     func stopUpdatingLocationIfPossible() {
         if self.locationRequests.count == 0 && self.locationObservers.count == 0 {
             self.locationManager.stopUpdatingLocation()
@@ -131,6 +148,10 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     // MARK: - location requests
     
+    public class func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, desiredAccuracy: CLLocationAccuracy? = nil, force: Bool = false) -> Promise<CLLocation> {
+        return self.sharedManager.getCurrentLocation(timeout: timeout, desiredAccuracy: desiredAccuracy, force: force)
+    }
+    
     public func getCurrentLocation(timeout timeout: NSTimeInterval? = 8.0, desiredAccuracy: CLLocationAccuracy? = nil, force: Bool = false) -> Promise<CLLocation> {
         return self.askForLocationServicesIfNeeded().then { (status) -> Promise<CLLocation> in
             if !self.isLocationAvailable() {
@@ -164,11 +185,19 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     // MARK: - location observers
     
+    public class func addLocationObserver(observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: NSTimeInterval? = nil, maximumTimeInterval: NSTimeInterval? = nil) {
+        self.sharedManager.addLocationObserver(observer, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+    }
+    
     public func addLocationObserver(observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: NSTimeInterval? = nil, maximumTimeInterval: NSTimeInterval? = nil) {
         let item = LocationObserverItem(locationObserver: observer, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
         self.locationObservers.insert(item)
         
         self.startUpdatingLocationIfNeeded()
+    }
+    
+    public class func removeLocationObserver(observer: LocationObserver) {
+        self.removeLocationObserver(observer)
     }
     
     public func removeLocationObserver(observer: LocationObserver) {
