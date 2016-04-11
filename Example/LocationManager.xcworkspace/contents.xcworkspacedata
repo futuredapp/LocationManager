@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:LocationManager/location-test.gpx">
+   </FileRef>
+   <FileRef
       location = "group:LocationManager.xcodeproj">
    </FileRef>
    <FileRef

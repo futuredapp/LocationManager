@@ -164,8 +164,8 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     
     // MARK: - location observers
     
-    public func addLocationObserver(observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil) {
-        let item = LocationObserverItem(locationObserver: observer, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter)
+    public func addLocationObserver(observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: NSTimeInterval? = nil, maximumTimeInterval: NSTimeInterval? = nil) {
+        let item = LocationObserverItem(locationObserver: observer, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
         self.locationObservers.insert(item)
         
         self.startUpdatingLocationIfNeeded()
@@ -175,6 +175,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         if let index = self.locationObservers.indexOf({ (_observer) -> Bool in
             return observer === _observer.observer
         }) {
+            self.locationObservers[index].invalidate()
             self.locationObservers.removeAtIndex(index)
         }
         

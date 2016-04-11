@@ -19,13 +19,28 @@ class LocationObserverItem: NSObject {
     let locationManager: LocationManager
     let desiredAccuracy: CLLocationAccuracy?
     let distanceFilter: CLLocationDistance?
+    let minimumTimeInterval: NSTimeInterval?
+    let maximumTimeInterval: NSTimeInterval?
     var previousLocation: CLLocation?
+    var newLocationForUpdate: CLLocation?
+    var minimumTimer: NSTimer?
+    var maximumTimer: NSTimer?
     
-    init(locationObserver: LocationObserver, locationManager: LocationManager, desiredAccuracy: CLLocationAccuracy?, distanceFilter: CLLocationDistance?) {
+    init(locationObserver: LocationObserver, locationManager: LocationManager, desiredAccuracy: CLLocationAccuracy?, distanceFilter: CLLocationDistance?, minimumTimeInterval: NSTimeInterval?, maximumTimeInterval: NSTimeInterval?) {
         self.observer = locationObserver
         self.locationManager = locationManager
         self.desiredAccuracy = desiredAccuracy
         self.distanceFilter = distanceFilter
+        self.minimumTimeInterval = minimumTimeInterval
+        self.maximumTimeInterval = maximumTimeInterval
+        
+        super.init()
+        
+        self.initializeTimers()
+    }
+    
+    func invalidate() {
+        self.deinitializeTimers()
     }
     
     func validateLocation(location: CLLocation) -> Bool {
@@ -43,9 +58,49 @@ class LocationObserverItem: NSObject {
             return
         }
         if self.validateLocation(location) {
-            self.observer.didUpdateLocation(self.locationManager, location: location)
-            self.previousLocation = location
+            if self.minimumTimer != nil && self.previousLocation != nil {
+                self.newLocationForUpdate = location
+            } else {
+                self.observer.didUpdateLocation(self.locationManager, location: location)
+                self.previousLocation = location
+            }
         }
+    }
+    
+    // Mark: - Timer methods
+    
+    func deinitializeTimers() {
+        self.minimumTimer?.invalidate()
+        self.minimumTimer = nil
+        self.maximumTimer?.invalidate()
+        self.maximumTimer = nil
+    }
+    
+    func initializeTimers() {
+        if let interval = self.minimumTimeInterval {
+            self.minimumTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: #selector(minimumTimerTick), userInfo: nil, repeats: true)
+        }
+        if let interval = self.maximumTimeInterval {
+            self.maximumTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: #selector(maximumTimerTick), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func minimumTimerTick() {
+        if let location = self.newLocationForUpdate {
+            self.updateLocationFromTimer(location)
+        }
+    }
+    
+    func maximumTimerTick() {
+        if let location = self.newLocationForUpdate ?? self.previousLocation {
+            self.updateLocationFromTimer(location)
+        }
+    }
+    
+    func updateLocationFromTimer(location: CLLocation) {
+        self.observer.didUpdateLocation(self.locationManager, location: location)
+        self.previousLocation = location
+        self.newLocationForUpdate = nil
     }
 }
 

@@ -14,41 +14,47 @@ class ViewController: UIViewController {
 
     @IBOutlet var locationRequestLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
-    @IBOutlet var location10Label: UILabel!
-    @IBOutlet var location50Label: UILabel!
+    @IBOutlet weak var distanceFilterLabel: UILabel!
+    @IBOutlet weak var distanceFilterSlider: UISlider!
+    @IBOutlet weak var minimumIntervalLabel: UILabel!
+    @IBOutlet weak var minimumIntervalSlider: UISlider!
+    @IBOutlet weak var maximumIntervalLabel: UILabel!
+    @IBOutlet weak var maximumIntervalSlider: UISlider!
     
-    lazy var observer: LocationObserverLabel = {
-        return LocationObserverLabel(label: self.locationLabel)
-    }()
-    lazy var observer10: LocationObserverLabel = {
-        return LocationObserverLabel(label: self.location10Label)
-    }()
-    lazy var observer50: LocationObserverLabel = {
-        return LocationObserverLabel(label: self.location50Label)
-    }()
+    var observer: LocationObserverLabel? = nil
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        LocationManager.sharedManager.addLocationObserver(self.observer)
-        LocationManager.sharedManager.addLocationObserver(self.observer10, distanceFilter: 10)
-        LocationManager.sharedManager.addLocationObserver(self.observer50, distanceFilter: 50)
         self.refreshLocation(self.locationLabel)
-    }
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        LocationManager.sharedManager.removeLocationObserver(self.observer)
-        LocationManager.sharedManager.removeLocationObserver(self.observer10)
-        LocationManager.sharedManager.removeLocationObserver(self.observer50)
+        self.didUpdateInterface(self)
     }
     
     @IBAction func refreshLocation(sender: AnyObject) {
         self.locationRequestLabel.text = "..."
         LocationManager.sharedManager.getCurrentLocation().then { location in
-            self.locationRequestLabel.text = "\(location.coordinate.latitude) \(location.coordinate.longitude)"
+            self.locationRequestLabel.text = "lat: \(location.coordinate.latitude)\nlng: \(location.coordinate.longitude)"
         }.error { error in
             self.locationRequestLabel.text = "cannot fetch location"
         }
     }
     
+    @IBAction func didUpdateInterface(sender: AnyObject) {
+        self.distanceFilterLabel.text = "Distance (\(Int(self.distanceFilterSlider.value))m)"
+        self.minimumIntervalLabel.text = "Minimum interval (\(Int(self.minimumIntervalSlider.value))s)"
+        self.maximumIntervalLabel.text = "Minimum interval (\(Int(self.maximumIntervalSlider.value))s) – forces call even without new location"
+        self.updateValuesAndInitializeObserver()
+    }
+    
+    func updateValuesAndInitializeObserver() {
+        if let currentObserver = self.observer {
+            LocationManager.sharedManager.removeLocationObserver(currentObserver)
+            self.observer = nil
+        }
+        let observer = LocationObserverLabel(label: self.locationLabel)
+        self.observer = observer
+        let minimumTimeInterval: Double? = self.minimumIntervalSlider.value == 0 ? nil : Double(self.minimumIntervalSlider.value)
+        let maximumTimeInterval: Double? = self.maximumIntervalSlider.value == 0 ? nil : Double(self.maximumIntervalSlider.value)
+        LocationManager.sharedManager.addLocationObserver(observer, distanceFilter: Double(self.distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+    }
 }
 
