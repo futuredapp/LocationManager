@@ -24,7 +24,7 @@ pod "LocationManager"
 
 ### Getting current location
 
-```
+```swift
 import LocationManager
 
 let desiredAccuracy: CLLocationAccuracy? = kCLLocationAccuracyBestForNavigation
@@ -42,7 +42,7 @@ When using location observing, you can use these parameters:
 
 ### Observing location
 
-```
+```swift
 import LocationManager
 
 class MyObserver: LocationObserver {
