@@ -10,12 +10,12 @@
 import CoreLocation
 import PromiseKit
 
-enum LocationManagerError: ErrorType {
+public enum LocationManagerError: ErrorType {
     case LocationServiceDisabled
     case CannotFetchLocation
 }
 
-enum LocationManagerAuthorizationError: ErrorType {
+public enum LocationManagerAuthorizationError: ErrorType {
     case KeyInPlistMissing
 }
 
