@@ -21,7 +21,7 @@ public enum LocationManagerAuthorizationError: ErrorType {
 
 public class LocationManager: NSObject, CLLocationManagerDelegate {
     
-    static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
+    public static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
     
     public static let sharedManager = LocationManager()
 
