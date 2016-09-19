@@ -1,0 +1,30 @@
+PODS:
+  - LocationManager (2.0.0):
+    - PromiseKit (~> 4.0)
+  - PromiseKit (4.0.1):
+    - PromiseKit/Foundation (= 4.0.1)
+    - PromiseKit/QuartzCore (= 4.0.1)
+    - PromiseKit/UIKit (= 4.0.1)
+  - PromiseKit/CorePromise (4.0.1)
+  - PromiseKit/Foundation (4.0.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.0.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.0.1):
+    - PromiseKit/CorePromise
+
+DEPENDENCIES:
+  - LocationManager (from `../`)
+  - PromiseKit (~> 4.0)
+
+EXTERNAL SOURCES:
+  LocationManager:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LocationManager: 614359c72d19c214be6a7445a5585771b6f9bf49
+  PromiseKit: ae9e7f97ee758e23f7b9c5e80380a2e78d6338c5
+
+PODFILE CHECKSUM: 1d847fcee31cf0bdfcb4fc186d750dc3ac9bd61c
+
+COCOAPODS: 1.0.1

@@ -1,0 +1,998 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A3F92D1A6AF40429111724870469405 /* Pods-LocationManager_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2240254897C810B891CB55B97F1D8506 /* Pods-LocationManager_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2ACAC97A71F09CC4A196B0FB6AE1C696 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5A13F607F3CE7FB765F5C9917DC8DA /* Foundation.framework */; };
+		40C1B0B93FFBC6D3179E4348A0600CE6 /* LocationManager-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B57881D5424EE2D77237C2EFA05F3086 /* LocationManager-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4221E2B5C173DEA4D7264A4C8C7CBF7D /* LocationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695F0C15A42DF0F2C30D3B56209785BF /* LocationObserver.swift */; };
+		5896D70674E66EE1FFBA90A775BE7D63 /* LocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE15633ACE9AC650565B6E800A987ACB /* LocationRequest.swift */; };
+		7DB242C683E9337D3A4C6F4EA2308FE7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3EDC62EA4B413B44BC1826D9E7204 /* LocationManager.swift */; };
+		843BFEE80AFBA99E4FF7BD65DB2F053C /* LocationManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A33E26A1B91C9B8104265CF33809FD1 /* LocationManager-dummy.m */; };
+		A4B99EA7CEE4C867E157A1AA978A1355 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5A13F607F3CE7FB765F5C9917DC8DA /* Foundation.framework */; };
+		AB5ACE657B16739E5C6AD0B2E5804CE2 /* Pods-LocationManager_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A183C363A030BFB16DEFDB7CCC1AF /* Pods-LocationManager_Tests-dummy.m */; };
+		BA00CAA3C6C1071A3BE98EFCC00978FC /* LocationManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2B0F7B35C1D59A4867B82BF7A4AC0C7A /* LocationManager.bundle */; };
+		DB2D7EC75DA23E942B286D10AC38177B /* Pods-LocationManager_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 78F8C3FEBAD4DF0E2C46B8FDB485933D /* Pods-LocationManager_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB8315D04A11FAD7FBA63B06BDF03F44 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5A13F607F3CE7FB765F5C9917DC8DA /* Foundation.framework */; };
+		E5A990F3AA2340E501646F1BC34F1AE6 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D8F25817235857AE113B60CE73F1492 /* PromiseKit.framework */; };
+		F571D480CEB71E7DA4DC478DC22EF017 /* Pods-LocationManager_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB19AB8CD4BCB1B4B42E2707F58BEC5 /* Pods-LocationManager_Example-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C5BB95D5FB3645B051226E5F737D758 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F2D2872C5F2FEEA8738ED9E6443BD3E;
+			remoteInfo = "LocationManager-LocationManager";
+		};
+		BF72FC603147154AAEB762E2F10B7A80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2869C3B3E574087CE523361E57523AD;
+			remoteInfo = LocationManager;
+		};
+		EF4E61CB319A630185466221968C708C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2869C3B3E574087CE523361E57523AD;
+			remoteInfo = LocationManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E26C02F46994AC1A952624ECD52381 /* after.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = after.m; path = Sources/after.m; sourceTree = "<group>"; };
+		0B9618F6338666BA28E1EC733FBF6964 /* race.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = race.swift; path = Sources/race.swift; sourceTree = "<group>"; };
+		0BA93238FD5A5B91A0948D915EEEC0D4 /* AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AnyPromise.m; path = Sources/AnyPromise.m; sourceTree = "<group>"; };
+		0D35DA96AFD9DE2E6A9CDCA85A74B6D3 /* Pods-LocationManager_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LocationManager_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		0D8F25817235857AE113B60CE73F1492 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1981C506C28D573CC63BC3AD102CD3B9 /* Promise+Properties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Properties.swift"; path = "Sources/Promise+Properties.swift"; sourceTree = "<group>"; };
+		1B4A183C363A030BFB16DEFDB7CCC1AF /* Pods-LocationManager_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LocationManager_Tests-dummy.m"; sourceTree = "<group>"; };
+		20DA68BA3AA396D2D6C68F10C843A7CE /* Pods-LocationManager_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LocationManager_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2240254897C810B891CB55B97F1D8506 /* Pods-LocationManager_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LocationManager_Example-umbrella.h"; sourceTree = "<group>"; };
+		22412A18907D8969724979DFCDC0032A /* PromiseKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = PromiseKit.modulemap; sourceTree = "<group>"; };
+		293FC0D8855FAB0F9A8A95E12EB0703C /* PromiseKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PromiseKit.h; path = Sources/PromiseKit.h; sourceTree = "<group>"; };
+		2AE78C029FCA6E2D4F3A9E2E84D8C043 /* UIViewController+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+Promise.swift"; path = "Extensions/UIKit/Sources/UIViewController+Promise.swift"; sourceTree = "<group>"; };
+		2B0F7B35C1D59A4867B82BF7A4AC0C7A /* LocationManager.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationManager.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F7168BAC2174A07FB8A60436947C1A9 /* ResourceBundle-LocationManager-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-LocationManager-Info.plist"; sourceTree = "<group>"; };
+		2FF964F3CB5229D2BF3A9445F53BF800 /* afterlife.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = afterlife.swift; path = Extensions/Foundation/Sources/afterlife.swift; sourceTree = "<group>"; };
+		323B0102F075558ED5CD6DFF2B5C792B /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Error.swift; sourceTree = "<group>"; };
+		370EE448C382E8686CFDAB38DCE8FA30 /* PMKQuartzCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PMKQuartzCore.h; path = Extensions/QuartzCore/Sources/PMKQuartzCore.h; sourceTree = "<group>"; };
+		379B7F0CCF583E2E4E38517072A80D27 /* when.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = when.swift; path = Sources/when.swift; sourceTree = "<group>"; };
+		38DDBAAE7BE1718EEF6A398DC1CF8098 /* URLDataPromise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLDataPromise.swift; path = Extensions/Foundation/Sources/URLDataPromise.swift; sourceTree = "<group>"; };
+		3902B310A9A6C29B33BF9291604E77B3 /* Pods-LocationManager_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LocationManager_Example.modulemap"; sourceTree = "<group>"; };
+		3A33E26A1B91C9B8104265CF33809FD1 /* LocationManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LocationManager-dummy.m"; sourceTree = "<group>"; };
+		442199B988480365E076183FE6CC56A8 /* Pods-LocationManager_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LocationManager_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		47EB7295A9FB7AEED3F8757E646398F0 /* Pods-LocationManager_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LocationManager_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		48CFFCC3877CF8E86A118D3526626433 /* Pods-LocationManager_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LocationManager_Example-frameworks.sh"; sourceTree = "<group>"; };
+		4B1F7F8F4767D82ECACF90F9B22E3485 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E5A13F607F3CE7FB765F5C9917DC8DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4F0ADC56B8C7AF6BE755701CE4ED1CC1 /* Pods-LocationManager_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LocationManager_Tests-resources.sh"; sourceTree = "<group>"; };
+		4FB890059CD16B30B552691CC1C8B28F /* PromiseKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PromiseKit-dummy.m"; sourceTree = "<group>"; };
+		511F48BE5B651B0E5A65D5914F52C3D2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52B0D645A08B2C723001290F08C6D933 /* PromiseKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PromiseKit.xcconfig; sourceTree = "<group>"; };
+		57686B35622A17A661D28C8CF1F661D1 /* Pods-LocationManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LocationManager_Example.release.xcconfig"; sourceTree = "<group>"; };
+		580EC6942925DAA6CA70817BCF117295 /* NSNotificationCenter+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNotificationCenter+AnyPromise.m"; path = "Extensions/Foundation/Sources/NSNotificationCenter+AnyPromise.m"; sourceTree = "<group>"; };
+		595C17BBDE441D69BD07FA3084496FDA /* AnyPromise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyPromise.swift; path = Sources/AnyPromise.swift; sourceTree = "<group>"; };
+		5BBEB9DF3A789E0F57C8E475768D1B54 /* LocationManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LocationManager.xcconfig; sourceTree = "<group>"; };
+		5D77BBDE66A1276C6FBE84F00EF273E0 /* DispatchQueue+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Promise.swift"; path = "Sources/DispatchQueue+Promise.swift"; sourceTree = "<group>"; };
+		60FBF85163E7E9D4830976786CC8E1DB /* GlobalState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GlobalState.m; path = Sources/GlobalState.m; sourceTree = "<group>"; };
+		695F0C15A42DF0F2C30D3B56209785BF /* LocationObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocationObserver.swift; sourceTree = "<group>"; };
+		78F8C3FEBAD4DF0E2C46B8FDB485933D /* Pods-LocationManager_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LocationManager_Tests-umbrella.h"; sourceTree = "<group>"; };
+		8205D4388158EC997468789D33D0409C /* Pods-LocationManager_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LocationManager_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		841C87F062D2944822403A8DEBA82C99 /* hang.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = hang.m; path = Sources/hang.m; sourceTree = "<group>"; };
+		84775445836C44FE7380B6282141F718 /* NSURLSession+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLSession+AnyPromise.m"; path = "Extensions/Foundation/Sources/NSURLSession+AnyPromise.m"; sourceTree = "<group>"; };
+		86948990BE3969C6EA33514ADE77C454 /* UIView+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Promise.swift"; path = "Extensions/UIKit/Sources/UIView+Promise.swift"; sourceTree = "<group>"; };
+		8A68DAAB5ADF04119C6CA61624C4C5C2 /* PMKUIKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PMKUIKit.h; path = Extensions/UIKit/Sources/PMKUIKit.h; sourceTree = "<group>"; };
+		8BD524CEA29DC298F88FB69486E5A18F /* NSObject+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject+Promise.swift"; path = "Extensions/Foundation/Sources/NSObject+Promise.swift"; sourceTree = "<group>"; };
+		8DB19AB8CD4BCB1B4B42E2707F58BEC5 /* Pods-LocationManager_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LocationManager_Example-dummy.m"; sourceTree = "<group>"; };
+		8F13A464CD1BEDF6BC0F60AEF9DC4ECD /* PMKFoundation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PMKFoundation.h; path = Extensions/Foundation/Sources/PMKFoundation.h; sourceTree = "<group>"; };
+		8FA3EDC62EA4B413B44BC1826D9E7204 /* LocationManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		914947BCF32104A0CB0F4DDBDCFCAF83 /* Pods-LocationManager_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LocationManager_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		938A81EBDAD87EB45FB87308FA7A3511 /* Promise+AnyPromise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+AnyPromise.swift"; path = "Sources/Promise+AnyPromise.swift"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94B0107FA97006B0F01F92C8D82F7770 /* UIView+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+AnyPromise.m"; path = "Extensions/UIKit/Sources/UIView+AnyPromise.m"; sourceTree = "<group>"; };
+		97A18FAA9E16EA93F20D8648BE758A8A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		985E4B6E5B468044EE9D27443521F2AC /* Pods-LocationManager_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LocationManager_Example-resources.sh"; sourceTree = "<group>"; };
+		9A61BAFD7EA1FC12B5EE8C9ED27BF9C0 /* join.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = join.m; path = Sources/join.m; sourceTree = "<group>"; };
+		9B00765D1EFF7891BC3ED16891B517B3 /* UIViewController+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+AnyPromise.m"; path = "Extensions/UIKit/Sources/UIViewController+AnyPromise.m"; sourceTree = "<group>"; };
+		9BA9C74E4D5A13233F993A30AD6E21E0 /* Pods_LocationManager_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocationManager_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BBB323FCCF0BFF374181E79604B23A1 /* LocationManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LocationManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2F5283AED9E0084319089DB47AC824A /* Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Promise.swift; path = Sources/Promise.swift; sourceTree = "<group>"; };
+		A95A46E76BE51B6D60CA1330AE739865 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		AC15F86459DB8AC7EF1EE1F93862CBDE /* Pods-LocationManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LocationManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		AE89BFD35232A02AD7415323D8866916 /* CALayer+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CALayer+AnyPromise.m"; path = "Extensions/QuartzCore/Sources/CALayer+AnyPromise.m"; sourceTree = "<group>"; };
+		AFB054A036C0087CAF8ABE8B786D86D5 /* Pods-LocationManager_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LocationManager_Tests.modulemap"; sourceTree = "<group>"; };
+		B10F6E99394E1BF73E4EA946EE113D3F /* NSNotificationCenter+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSNotificationCenter+Promise.swift"; path = "Extensions/Foundation/Sources/NSNotificationCenter+Promise.swift"; sourceTree = "<group>"; };
+		B57881D5424EE2D77237C2EFA05F3086 /* LocationManager-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LocationManager-umbrella.h"; sourceTree = "<group>"; };
+		B71AC13DEE61845859020C1596895A65 /* PromiseKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-prefix.pch"; sourceTree = "<group>"; };
+		B95C19AFDBC60E8722C0170768D0C6EA /* NSNotificationCenter+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+AnyPromise.h"; path = "Extensions/Foundation/Sources/NSNotificationCenter+AnyPromise.h"; sourceTree = "<group>"; };
+		BA46F80A85ACC80F514707206561693A /* PMKAlertController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PMKAlertController.swift; path = Extensions/UIKit/Sources/PMKAlertController.swift; sourceTree = "<group>"; };
+		BAE4B7B012BA2799B28175BF9368C4DB /* PromiseKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-umbrella.h"; sourceTree = "<group>"; };
+		BFD99009AA85FC2BEF3C9DCBD919F4B7 /* CALayer+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CALayer+AnyPromise.h"; path = "Extensions/QuartzCore/Sources/CALayer+AnyPromise.h"; sourceTree = "<group>"; };
+		C64EC761F5CC8F8076A6C35B4BB6F50C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		CC2ECF7B0320F8BE4524DA637FE510D2 /* Pods-LocationManager_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LocationManager_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CCF0924DDCF041E143A5F217A1549F39 /* after.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = after.swift; path = Sources/after.swift; sourceTree = "<group>"; };
+		CCFD66CB6D1FB0D22F786A7E4071D9E5 /* when.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = when.m; path = Sources/when.m; sourceTree = "<group>"; };
+		CD742FA1E81DC52E8AC3742995A7892D /* UIViewController+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+AnyPromise.h"; path = "Extensions/UIKit/Sources/UIViewController+AnyPromise.h"; sourceTree = "<group>"; };
+		D1A5A49A263D9B1709406E9C6797AF05 /* LocationManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = LocationManager.modulemap; sourceTree = "<group>"; };
+		D52C8BA96498D8189883D731203E146B /* NSURLSession+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURLSession+AnyPromise.h"; path = "Extensions/Foundation/Sources/NSURLSession+AnyPromise.h"; sourceTree = "<group>"; };
+		DE15633ACE9AC650565B6E800A987ACB /* LocationRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocationRequest.swift; sourceTree = "<group>"; };
+		E17CE39DFDE66528CB672CE79D7E9964 /* Zalgo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Zalgo.swift; path = Sources/Zalgo.swift; sourceTree = "<group>"; };
+		E1F96584A834300B9599A80FB1A214E3 /* dispatch_promise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = dispatch_promise.m; path = Sources/dispatch_promise.m; sourceTree = "<group>"; };
+		E27C02FE27A92A2D01B8CD40BB6AFB9E /* Process+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Process+Promise.swift"; path = "Extensions/Foundation/Sources/Process+Promise.swift"; sourceTree = "<group>"; };
+		E4D36754451FFAFDAB2C9ECF0803EC9F /* AAA-CocoaPods-Hack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "AAA-CocoaPods-Hack.h"; path = "Sources/AAA-CocoaPods-Hack.h"; sourceTree = "<group>"; };
+		E599E8C50D268A2B0B0DFEF3F8EB090D /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSURLSession+Promise.swift"; path = "Extensions/Foundation/Sources/NSURLSession+Promise.swift"; sourceTree = "<group>"; };
+		E5B0272CA5D20BEA492F3C4794E2137C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC528C7B726C7747B2B6B006EC8E946A /* AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AnyPromise.h; path = Sources/AnyPromise.h; sourceTree = "<group>"; };
+		ED82A9AC9105BD7D83B829BA19C7D651 /* wrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = wrap.swift; path = Sources/wrap.swift; sourceTree = "<group>"; };
+		F146CC76FC6E98650541C43EA2A75E14 /* UIView+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+AnyPromise.h"; path = "Extensions/UIKit/Sources/UIView+AnyPromise.h"; sourceTree = "<group>"; };
+		F775AA2E733DB2D69596884FE9F5817B /* Pods_LocationManager_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocationManager_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7998CAD378F096A3F86EAE91CAF3F3D /* State.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = State.swift; path = Sources/State.swift; sourceTree = "<group>"; };
+		FB5199E92B3268F00A60EE148671E154 /* LocationManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LocationManager-prefix.pch"; sourceTree = "<group>"; };
+		FF11F3AE04ADD065AF99CF5FBC33935D /* join.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = join.swift; path = Sources/join.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		466D6720564B40BC066D89BE5B83275D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE6E36727D8D6E05F8FAC42EA47CD493 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4B99EA7CEE4C867E157A1AA978A1355 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4238028EBFB365FDE5786EA035870A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ACAC97A71F09CC4A196B0FB6AE1C696 /* Foundation.framework in Frameworks */,
+				E5A990F3AA2340E501646F1BC34F1AE6 /* PromiseKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF46D195308FFD6AF3CD40A82077ACFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB8315D04A11FAD7FBA63B06BDF03F44 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A61D314312B0B7E0B07407EFE1BAF9A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B0F7B35C1D59A4867B82BF7A4AC0C7A /* LocationManager.bundle */,
+				9BBB323FCCF0BFF374181E79604B23A1 /* LocationManager.framework */,
+				F775AA2E733DB2D69596884FE9F5817B /* Pods_LocationManager_Example.framework */,
+				9BA9C74E4D5A13233F993A30AD6E21E0 /* Pods_LocationManager_Tests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45B1C67D699FFC25A901A8016ECE0802 /* PromiseKit */ = {
+			isa = PBXGroup;
+			children = (
+				5126627220F4713F97C158480B07210E /* CorePromise */,
+				7CEEB754480E95F35CE74F8FFBCA61FA /* Foundation */,
+				461B69A8A9053BDF306441CAD9045F36 /* QuartzCore */,
+				F1848FE0811A9E8D60B1AAA06F631419 /* Support Files */,
+				B0CFE67CBE89B8A2F6ED15685908D71E /* UIKit */,
+			);
+			path = PromiseKit;
+			sourceTree = "<group>";
+		};
+		461B69A8A9053BDF306441CAD9045F36 /* QuartzCore */ = {
+			isa = PBXGroup;
+			children = (
+				BFD99009AA85FC2BEF3C9DCBD919F4B7 /* CALayer+AnyPromise.h */,
+				AE89BFD35232A02AD7415323D8866916 /* CALayer+AnyPromise.m */,
+				370EE448C382E8686CFDAB38DCE8FA30 /* PMKQuartzCore.h */,
+			);
+			name = QuartzCore;
+			sourceTree = "<group>";
+		};
+		5126627220F4713F97C158480B07210E /* CorePromise */ = {
+			isa = PBXGroup;
+			children = (
+				E4D36754451FFAFDAB2C9ECF0803EC9F /* AAA-CocoaPods-Hack.h */,
+				00E26C02F46994AC1A952624ECD52381 /* after.m */,
+				CCF0924DDCF041E143A5F217A1549F39 /* after.swift */,
+				EC528C7B726C7747B2B6B006EC8E946A /* AnyPromise.h */,
+				0BA93238FD5A5B91A0948D915EEEC0D4 /* AnyPromise.m */,
+				595C17BBDE441D69BD07FA3084496FDA /* AnyPromise.swift */,
+				E1F96584A834300B9599A80FB1A214E3 /* dispatch_promise.m */,
+				5D77BBDE66A1276C6FBE84F00EF273E0 /* DispatchQueue+Promise.swift */,
+				323B0102F075558ED5CD6DFF2B5C792B /* Error.swift */,
+				60FBF85163E7E9D4830976786CC8E1DB /* GlobalState.m */,
+				841C87F062D2944822403A8DEBA82C99 /* hang.m */,
+				9A61BAFD7EA1FC12B5EE8C9ED27BF9C0 /* join.m */,
+				FF11F3AE04ADD065AF99CF5FBC33935D /* join.swift */,
+				A2F5283AED9E0084319089DB47AC824A /* Promise.swift */,
+				938A81EBDAD87EB45FB87308FA7A3511 /* Promise+AnyPromise.swift */,
+				1981C506C28D573CC63BC3AD102CD3B9 /* Promise+Properties.swift */,
+				293FC0D8855FAB0F9A8A95E12EB0703C /* PromiseKit.h */,
+				0B9618F6338666BA28E1EC733FBF6964 /* race.swift */,
+				F7998CAD378F096A3F86EAE91CAF3F3D /* State.swift */,
+				CCFD66CB6D1FB0D22F786A7E4071D9E5 /* when.m */,
+				379B7F0CCF583E2E4E38517072A80D27 /* when.swift */,
+				ED82A9AC9105BD7D83B829BA19C7D651 /* wrap.swift */,
+				E17CE39DFDE66528CB672CE79D7E9964 /* Zalgo.swift */,
+			);
+			name = CorePromise;
+			sourceTree = "<group>";
+		};
+		66B6D3A3FC66A55B94787C069CBEABC5 /* Pods-LocationManager_Example */ = {
+			isa = PBXGroup;
+			children = (
+				4B1F7F8F4767D82ECACF90F9B22E3485 /* Info.plist */,
+				3902B310A9A6C29B33BF9291604E77B3 /* Pods-LocationManager_Example.modulemap */,
+				20DA68BA3AA396D2D6C68F10C843A7CE /* Pods-LocationManager_Example-acknowledgements.markdown */,
+				442199B988480365E076183FE6CC56A8 /* Pods-LocationManager_Example-acknowledgements.plist */,
+				8DB19AB8CD4BCB1B4B42E2707F58BEC5 /* Pods-LocationManager_Example-dummy.m */,
+				48CFFCC3877CF8E86A118D3526626433 /* Pods-LocationManager_Example-frameworks.sh */,
+				985E4B6E5B468044EE9D27443521F2AC /* Pods-LocationManager_Example-resources.sh */,
+				2240254897C810B891CB55B97F1D8506 /* Pods-LocationManager_Example-umbrella.h */,
+				AC15F86459DB8AC7EF1EE1F93862CBDE /* Pods-LocationManager_Example.debug.xcconfig */,
+				57686B35622A17A661D28C8CF1F661D1 /* Pods-LocationManager_Example.release.xcconfig */,
+			);
+			name = "Pods-LocationManager_Example";
+			path = "Target Support Files/Pods-LocationManager_Example";
+			sourceTree = "<group>";
+		};
+		7CEEB754480E95F35CE74F8FFBCA61FA /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				2FF964F3CB5229D2BF3A9445F53BF800 /* afterlife.swift */,
+				B95C19AFDBC60E8722C0170768D0C6EA /* NSNotificationCenter+AnyPromise.h */,
+				580EC6942925DAA6CA70817BCF117295 /* NSNotificationCenter+AnyPromise.m */,
+				B10F6E99394E1BF73E4EA946EE113D3F /* NSNotificationCenter+Promise.swift */,
+				8BD524CEA29DC298F88FB69486E5A18F /* NSObject+Promise.swift */,
+				D52C8BA96498D8189883D731203E146B /* NSURLSession+AnyPromise.h */,
+				84775445836C44FE7380B6282141F718 /* NSURLSession+AnyPromise.m */,
+				E599E8C50D268A2B0B0DFEF3F8EB090D /* NSURLSession+Promise.swift */,
+				8F13A464CD1BEDF6BC0F60AEF9DC4ECD /* PMKFoundation.h */,
+				E27C02FE27A92A2D01B8CD40BB6AFB9E /* Process+Promise.swift */,
+				38DDBAAE7BE1718EEF6A398DC1CF8098 /* URLDataPromise.swift */,
+			);
+			name = Foundation;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				B1F6CE6234DA237D9DE142B5D758469D /* Development Pods */,
+				88C6DB8A0F66453A47EC75CAF7D03594 /* Frameworks */,
+				9BC2F6B1CCEF88766C020D4B57771407 /* Pods */,
+				2A61D314312B0B7E0B07407EFE1BAF9A /* Products */,
+				EF836BD8E0802322AB9A13AF56D9F91B /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		88C6DB8A0F66453A47EC75CAF7D03594 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0D8F25817235857AE113B60CE73F1492 /* PromiseKit.framework */,
+				EEAFECC8E0367190FDB50760FBCA1EC2 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BB4359C082DA9DA559D57642AE29A31 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				AF7E6A75E966D58A168D312152F360E3 /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		9BC2F6B1CCEF88766C020D4B57771407 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				45B1C67D699FFC25A901A8016ECE0802 /* PromiseKit */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AEAB0F881048BAA6538C7E2D8F746EAA /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				9BB4359C082DA9DA559D57642AE29A31 /* Pod */,
+				D9F1679F88F684FDAE8B0D6D08C87C23 /* Support Files */,
+			);
+			name = LocationManager;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		AF7E6A75E966D58A168D312152F360E3 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8FA3EDC62EA4B413B44BC1826D9E7204 /* LocationManager.swift */,
+				695F0C15A42DF0F2C30D3B56209785BF /* LocationObserver.swift */,
+				DE15633ACE9AC650565B6E800A987ACB /* LocationRequest.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		B0CFE67CBE89B8A2F6ED15685908D71E /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				BA46F80A85ACC80F514707206561693A /* PMKAlertController.swift */,
+				8A68DAAB5ADF04119C6CA61624C4C5C2 /* PMKUIKit.h */,
+				F146CC76FC6E98650541C43EA2A75E14 /* UIView+AnyPromise.h */,
+				94B0107FA97006B0F01F92C8D82F7770 /* UIView+AnyPromise.m */,
+				86948990BE3969C6EA33514ADE77C454 /* UIView+Promise.swift */,
+				CD742FA1E81DC52E8AC3742995A7892D /* UIViewController+AnyPromise.h */,
+				9B00765D1EFF7891BC3ED16891B517B3 /* UIViewController+AnyPromise.m */,
+				2AE78C029FCA6E2D4F3A9E2E84D8C043 /* UIViewController+Promise.swift */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
+		B1F6CE6234DA237D9DE142B5D758469D /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AEAB0F881048BAA6538C7E2D8F746EAA /* LocationManager */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		D8EC9D15D23BD281B24DD56180DB76CF /* Pods-LocationManager_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E5B0272CA5D20BEA492F3C4794E2137C /* Info.plist */,
+				AFB054A036C0087CAF8ABE8B786D86D5 /* Pods-LocationManager_Tests.modulemap */,
+				CC2ECF7B0320F8BE4524DA637FE510D2 /* Pods-LocationManager_Tests-acknowledgements.markdown */,
+				47EB7295A9FB7AEED3F8757E646398F0 /* Pods-LocationManager_Tests-acknowledgements.plist */,
+				1B4A183C363A030BFB16DEFDB7CCC1AF /* Pods-LocationManager_Tests-dummy.m */,
+				8205D4388158EC997468789D33D0409C /* Pods-LocationManager_Tests-frameworks.sh */,
+				4F0ADC56B8C7AF6BE755701CE4ED1CC1 /* Pods-LocationManager_Tests-resources.sh */,
+				78F8C3FEBAD4DF0E2C46B8FDB485933D /* Pods-LocationManager_Tests-umbrella.h */,
+				0D35DA96AFD9DE2E6A9CDCA85A74B6D3 /* Pods-LocationManager_Tests.debug.xcconfig */,
+				914947BCF32104A0CB0F4DDBDCFCAF83 /* Pods-LocationManager_Tests.release.xcconfig */,
+			);
+			name = "Pods-LocationManager_Tests";
+			path = "Target Support Files/Pods-LocationManager_Tests";
+			sourceTree = "<group>";
+		};
+		D9F1679F88F684FDAE8B0D6D08C87C23 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				511F48BE5B651B0E5A65D5914F52C3D2 /* Info.plist */,
+				D1A5A49A263D9B1709406E9C6797AF05 /* LocationManager.modulemap */,
+				5BBEB9DF3A789E0F57C8E475768D1B54 /* LocationManager.xcconfig */,
+				3A33E26A1B91C9B8104265CF33809FD1 /* LocationManager-dummy.m */,
+				FB5199E92B3268F00A60EE148671E154 /* LocationManager-prefix.pch */,
+				B57881D5424EE2D77237C2EFA05F3086 /* LocationManager-umbrella.h */,
+				2F7168BAC2174A07FB8A60436947C1A9 /* ResourceBundle-LocationManager-Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/LocationManager";
+			sourceTree = "<group>";
+		};
+		EEAFECC8E0367190FDB50760FBCA1EC2 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				4E5A13F607F3CE7FB765F5C9917DC8DA /* Foundation.framework */,
+				A95A46E76BE51B6D60CA1330AE739865 /* QuartzCore.framework */,
+				C64EC761F5CC8F8076A6C35B4BB6F50C /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		EF836BD8E0802322AB9A13AF56D9F91B /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				66B6D3A3FC66A55B94787C069CBEABC5 /* Pods-LocationManager_Example */,
+				D8EC9D15D23BD281B24DD56180DB76CF /* Pods-LocationManager_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		F1848FE0811A9E8D60B1AAA06F631419 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				97A18FAA9E16EA93F20D8648BE758A8A /* Info.plist */,
+				22412A18907D8969724979DFCDC0032A /* PromiseKit.modulemap */,
+				52B0D645A08B2C723001290F08C6D933 /* PromiseKit.xcconfig */,
+				4FB890059CD16B30B552691CC1C8B28F /* PromiseKit-dummy.m */,
+				B71AC13DEE61845859020C1596895A65 /* PromiseKit-prefix.pch */,
+				BAE4B7B012BA2799B28175BF9368C4DB /* PromiseKit-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PromiseKit";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4F801956EBE61497B98476643CF21420 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40C1B0B93FFBC6D3179E4348A0600CE6 /* LocationManager-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D0BD8B1FD4532FC6B2F6BE428B5BCF2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB2D7EC75DA23E942B286D10AC38177B /* Pods-LocationManager_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC86742E610B9959966053A36AFF63CE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A3F92D1A6AF40429111724870469405 /* Pods-LocationManager_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1B966BA0310E4FB5F351E3CB0C2CDD34 /* Pods-LocationManager_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 831E9C5D8CBDBE5A13D30032E5DCA79F /* Build configuration list for PBXNativeTarget "Pods-LocationManager_Tests" */;
+			buildPhases = (
+				76C4370E62C213B494DB919AE4CF0E63 /* Sources */,
+				FF46D195308FFD6AF3CD40A82077ACFF /* Frameworks */,
+				9D0BD8B1FD4532FC6B2F6BE428B5BCF2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A410410B6A48A7786DC4F8A0BA56688B /* PBXTargetDependency */,
+			);
+			name = "Pods-LocationManager_Tests";
+			productName = "Pods-LocationManager_Tests";
+			productReference = 9BA9C74E4D5A13233F993A30AD6E21E0 /* Pods_LocationManager_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4F2D2872C5F2FEEA8738ED9E6443BD3E /* LocationManager-LocationManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5EF8E8A14592F2FFF71AFE69CAEE8F1 /* Build configuration list for PBXNativeTarget "LocationManager-LocationManager" */;
+			buildPhases = (
+				AB8E3F469EB94B014A7B54AB7EF9BC63 /* Sources */,
+				466D6720564B40BC066D89BE5B83275D /* Frameworks */,
+				FAA07AFB1EDB5003ED6FF78552F5612B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LocationManager-LocationManager";
+			productName = "LocationManager-LocationManager";
+			productReference = 2B0F7B35C1D59A4867B82BF7A4AC0C7A /* LocationManager.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		D2869C3B3E574087CE523361E57523AD /* LocationManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06E4C1D3C4DFE65904E16FF55D035711 /* Build configuration list for PBXNativeTarget "LocationManager" */;
+			buildPhases = (
+				C84E0664D0397E11373A90D081F25F15 /* Sources */,
+				F4238028EBFB365FDE5786EA035870A3 /* Frameworks */,
+				5B09829C1C5759B52FBEC1A759EB9295 /* Resources */,
+				4F801956EBE61497B98476643CF21420 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7C33B8EFF6D5C520149F2E43C42948A2 /* PBXTargetDependency */,
+			);
+			name = LocationManager;
+			productName = LocationManager;
+			productReference = 9BBB323FCCF0BFF374181E79604B23A1 /* LocationManager.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F2EFEC9824A4FDDE59BEA867D29C6564 /* Pods-LocationManager_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0045CF00A48B04A63F583D4E9394AC63 /* Build configuration list for PBXNativeTarget "Pods-LocationManager_Example" */;
+			buildPhases = (
+				BD65EAF29070A6E9FCDA75C7DB0B06D7 /* Sources */,
+				DE6E36727D8D6E05F8FAC42EA47CD493 /* Frameworks */,
+				BC86742E610B9959966053A36AFF63CE /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				761A0D48FEFCF5BDBEA97612A6EA0F11 /* PBXTargetDependency */,
+			);
+			name = "Pods-LocationManager_Example";
+			productName = "Pods-LocationManager_Example";
+			productReference = F775AA2E733DB2D69596884FE9F5817B /* Pods_LocationManager_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 2A61D314312B0B7E0B07407EFE1BAF9A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2869C3B3E574087CE523361E57523AD /* LocationManager */,
+				4F2D2872C5F2FEEA8738ED9E6443BD3E /* LocationManager-LocationManager */,
+				F2EFEC9824A4FDDE59BEA867D29C6564 /* Pods-LocationManager_Example */,
+				1B966BA0310E4FB5F351E3CB0C2CDD34 /* Pods-LocationManager_Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5B09829C1C5759B52FBEC1A759EB9295 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA00CAA3C6C1071A3BE98EFCC00978FC /* LocationManager.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA07AFB1EDB5003ED6FF78552F5612B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		76C4370E62C213B494DB919AE4CF0E63 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB5ACE657B16739E5C6AD0B2E5804CE2 /* Pods-LocationManager_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB8E3F469EB94B014A7B54AB7EF9BC63 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD65EAF29070A6E9FCDA75C7DB0B06D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F571D480CEB71E7DA4DC478DC22EF017 /* Pods-LocationManager_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C84E0664D0397E11373A90D081F25F15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				843BFEE80AFBA99E4FF7BD65DB2F053C /* LocationManager-dummy.m in Sources */,
+				7DB242C683E9337D3A4C6F4EA2308FE7 /* LocationManager.swift in Sources */,
+				4221E2B5C173DEA4D7264A4C8C7CBF7D /* LocationObserver.swift in Sources */,
+				5896D70674E66EE1FFBA90A775BE7D63 /* LocationRequest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		761A0D48FEFCF5BDBEA97612A6EA0F11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LocationManager;
+			target = D2869C3B3E574087CE523361E57523AD /* LocationManager */;
+			targetProxy = BF72FC603147154AAEB762E2F10B7A80 /* PBXContainerItemProxy */;
+		};
+		7C33B8EFF6D5C520149F2E43C42948A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "LocationManager-LocationManager";
+			target = 4F2D2872C5F2FEEA8738ED9E6443BD3E /* LocationManager-LocationManager */;
+			targetProxy = 9C5BB95D5FB3645B051226E5F737D758 /* PBXContainerItemProxy */;
+		};
+		A410410B6A48A7786DC4F8A0BA56688B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LocationManager;
+			target = D2869C3B3E574087CE523361E57523AD /* LocationManager */;
+			targetProxy = EF4E61CB319A630185466221968C708C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0B0F4DA9F5E6D2529B8020A8ACD5B3B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BBEB9DF3A789E0F57C8E475768D1B54 /* LocationManager.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/LocationManager/LocationManager-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/LocationManager/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/LocationManager/LocationManager.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = LocationManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		16E20A4AE62F8EE44B05D8E647F085E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BBEB9DF3A789E0F57C8E475768D1B54 /* LocationManager.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/LocationManager";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/LocationManager/ResourceBundle-LocationManager-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = LocationManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		16F56C872F6113F9DD0C5033834613C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC15F86459DB8AC7EF1EE1F93862CBDE /* Pods-LocationManager_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-LocationManager_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LocationManager_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		840FBAB826BAC2CED7E2BF13DD54A404 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 914947BCF32104A0CB0F4DDBDCFCAF83 /* Pods-LocationManager_Tests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-LocationManager_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LocationManager_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		E315EE8CE4256BE4A0773E0412757289 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BBEB9DF3A789E0F57C8E475768D1B54 /* LocationManager.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/LocationManager";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/LocationManager/ResourceBundle-LocationManager-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = LocationManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		E3F4FB78B74A5E533D65B34F477659E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57686B35622A17A661D28C8CF1F661D1 /* Pods-LocationManager_Example.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-LocationManager_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LocationManager_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F4D5E757F0B47CE91B9562CFCCA3B508 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D35DA96AFD9DE2E6A9CDCA85A74B6D3 /* Pods-LocationManager_Tests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-LocationManager_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LocationManager_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F63E4CACD51E6566963CB092BFE2453F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BBEB9DF3A789E0F57C8E475768D1B54 /* LocationManager.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/LocationManager/LocationManager-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/LocationManager/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/LocationManager/LocationManager.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = LocationManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0045CF00A48B04A63F583D4E9394AC63 /* Build configuration list for PBXNativeTarget "Pods-LocationManager_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16F56C872F6113F9DD0C5033834613C4 /* Debug */,
+				E3F4FB78B74A5E533D65B34F477659E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		06E4C1D3C4DFE65904E16FF55D035711 /* Build configuration list for PBXNativeTarget "LocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B0F4DA9F5E6D2529B8020A8ACD5B3B0 /* Debug */,
+				F63E4CACD51E6566963CB092BFE2453F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */,
+				0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		831E9C5D8CBDBE5A13D30032E5DCA79F /* Build configuration list for PBXNativeTarget "Pods-LocationManager_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4D5E757F0B47CE91B9562CFCCA3B508 /* Debug */,
+				840FBAB826BAC2CED7E2BF13DD54A404 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5EF8E8A14592F2FFF71AFE69CAEE8F1 /* Build configuration list for PBXNativeTarget "LocationManager-LocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E315EE8CE4256BE4A0773E0412757289 /* Debug */,
+				16E20A4AE62F8EE44B05D8E647F085E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

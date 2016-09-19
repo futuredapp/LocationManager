@@ -33,7 +33,7 @@ class Tests: XCTestCase, LocationObserver {
     
     // MARK: LocationObserver delegate
     
-    func didUpdateLocation(manager: LocationManager, location: CLLocation) {
+    func didUpdateLocation(_ manager: LocationManager, location: CLLocation) {
         
     }
     
