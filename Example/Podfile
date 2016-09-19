@@ -1,10 +1,20 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'LocationManager_Example', :exclusive => true do
+target 'LocationManager_Example' do
   pod 'LocationManager', :path => '../'
+  pod "PromiseKit", "~> 4.0"
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
 end
 
-target 'LocationManager_Tests', :exclusive => true do
+end
+
+target 'LocationManager_Tests' do
   pod 'LocationManager', :path => '../'
 end
