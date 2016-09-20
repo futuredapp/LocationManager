@@ -22,11 +22,11 @@ class Tests: XCTestCase, LocationObserver {
         
         let manager = LocationManager()
         
-        manager.addLocationObserver(self)
+        manager.add(locationObserver: self)
         
         XCTAssertEqual(manager.locationObserversCount, 1)
         
-        manager.removeLocationObserver(self)
+        manager.remove(locationObserver: self)
         
         XCTAssertEqual(manager.locationObserversCount, 0)
     }
@@ -36,5 +36,4 @@ class Tests: XCTestCase, LocationObserver {
     func didUpdateLocation(_ manager: LocationManager, location: CLLocation) {
         
     }
-    
 }

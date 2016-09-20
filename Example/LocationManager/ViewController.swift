@@ -37,9 +37,9 @@ class ViewController: UIViewController {
 
         LocationManager.getCurrentLocation().then { location in
             self.locationRequestLabel.text = "lat: \(location.coordinate.latitude)\nlng: \(location.coordinate.longitude)"
-        }//.error { error in
-           // self.locationRequestLabel.text = "cannot fetch location"
-        //}
+        }.catch { error in
+           self.locationRequestLabel.text = "cannot fetch location"
+        }
     }
     
     @IBAction func didUpdateInterface(_ sender: AnyObject) {
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 
         if let currentObserver = self.observer {
 
-            LocationManager.removeLocationObserver(currentObserver)
+            LocationManager.remove(locationObserver: currentObserver)
             self.observer = nil
         }
 
@@ -63,6 +63,6 @@ class ViewController: UIViewController {
         let minimumTimeInterval: Double? = self.minimumIntervalSlider.value == 0 ? nil : Double(self.minimumIntervalSlider.value)
         let maximumTimeInterval: Double? = self.maximumIntervalSlider.value == 0 ? nil : Double(self.maximumIntervalSlider.value)
 
-        LocationManager.addLocationObserver(observer, distanceFilter: Double(self.distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+        LocationManager.add(locationObserver: observer, distanceFilter: Double(self.distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
     }
 }
