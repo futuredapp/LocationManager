@@ -29,9 +29,9 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     var currentLocation: CLLocation?
     internal var lastKnownLocation: CLLocation?
     
-    fileprivate var locationRequests: [LocationRequest] = []
+    fileprivate var locationRequests = [LocationRequest]()
     fileprivate var locationObservers: Set<LocationObserverItem> = []
-    fileprivate var askForLocationServicesFulfillments: [AuthorizationFulfillment] = []
+    fileprivate var askForLocationServicesFulfillments = [AuthorizationFulfillment]()
     fileprivate let locationManager = CLLocationManager()
 
     open static var locationObserversCount: Int {
@@ -77,19 +77,19 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     open func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus>{
 
-        return Promise { fulfill, reject in
+        return Promise { fulfill , reject in
 
             if isLocationStatusDetermined() {
                 return fulfill(CLLocationManager.authorizationStatus())
             }
 
-            askWithFulfillment({ (status: CLAuthorizationStatus) -> Void in
+            askWith(fulfillment: { (status: CLAuthorizationStatus) -> Void in
                 fulfill(status)
-            },rejection: reject)
+            }, rejection: reject)
         }
     }
     
-    fileprivate func askWithFulfillment(_ fulfillment: @escaping AuthorizationFulfillment, rejection: (Error) -> Void) -> Void {
+    fileprivate func askWith(fulfillment: @escaping AuthorizationFulfillment, rejection: (Error) -> Void) -> Void {
 
         var rejected = false
 
@@ -143,13 +143,14 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
         let requestsDesiredAccuracy = locationRequests.map { (request) -> CLLocationAccuracy in
             return request.desiredAccuracy ?? 0
-            }.min() ?? 0
+        }.min() ?? 0
         
         let observersDesiredAccuracy = locationObservers.map { (observer) -> CLLocationAccuracy in
             return observer.desiredAccuracy ?? 0
-            }.min() ?? 0
+        }.min() ?? 0
         
         let desiredAccuracy = min(requestsDesiredAccuracy,observersDesiredAccuracy)
+
         if locationManager.desiredAccuracy != desiredAccuracy {
            locationManager.desiredAccuracy = desiredAccuracy
         }
@@ -158,7 +159,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
             let observersDistanceFilter = locationObservers.map { (observer) -> CLLocationAccuracy in
                 return observer.distanceFilter ?? 0
-                }.min() ?? 0
+            }.min() ?? 0
             
             if locationManager.distanceFilter != observersDistanceFilter {
                 locationManager.distanceFilter = observersDistanceFilter
@@ -200,38 +201,38 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     internal func locationRequestDidTimeout(_ request: LocationRequest) {
-        removeLocationRequest(request)
+        remove(locationRequest: request)
     }
     
-    internal func removeLocationRequest(_ request: LocationRequest) {
+    internal func remove(locationRequest: LocationRequest) {
 
-        if let index = locationRequests.index(of: request) {
+        if let index = locationRequests.index(of: locationRequest) {
             locationRequests.remove(at: index)
         }
     }
     
     // MARK: - Location observers
     
-    open class func addLocationObserver(_ observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: TimeInterval? = nil, maximumTimeInterval: TimeInterval? = nil) {
-        sharedManager.addLocationObserver(observer, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+    open class func add(locationObserver: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: TimeInterval? = nil, maximumTimeInterval: TimeInterval? = nil) {
+        sharedManager.add(locationObserver: locationObserver, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
     }
     
-    open func addLocationObserver(_ observer: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: TimeInterval? = nil, maximumTimeInterval: TimeInterval? = nil) {
+    open func add(locationObserver: LocationObserver, desiredAccuracy: CLLocationAccuracy? = nil, distanceFilter: CLLocationDistance? = nil, minimumTimeInterval: TimeInterval? = nil, maximumTimeInterval: TimeInterval? = nil) {
 
-        let item = LocationObserverItem(locationObserver: observer, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+        let item = LocationObserverItem(locationObserver: locationObserver, locationManager: self, desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
         locationObservers.insert(item)
         
         startUpdatingLocationIfNeeded()
     }
     
-    open class func removeLocationObserver(_ observer: LocationObserver) {
-        sharedManager.removeLocationObserver(observer)
+    open class func remove(locationObserver: LocationObserver) {
+        sharedManager.remove(locationObserver: locationObserver)
     }
     
-    open func removeLocationObserver(_ observer: LocationObserver) {
+    open func remove(locationObserver: LocationObserver) {
 
         if let index = locationObservers.index(where: { (_observer) -> Bool in
-            return observer === _observer.observer
+            return locationObserver === _observer.observer
         }) {
             locationObservers[index].invalidate()
             locationObservers.remove(at: index)
@@ -244,7 +245,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         
         let request = LocationRequest(timeout: timeout, desiredAccuracy: desiredAccuracy, completion: completion, locationManager: self)
         
-        if !request.completeWithLocation(lastKnownLocation) {
+        if !request.completeWith(location: lastKnownLocation) {
             locationRequests.append(request)
             startUpdatingLocationIfNeeded()
         }
@@ -257,10 +258,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         NotificationCenter.default.post(name: Notification.Name(rawValue: LocationManager.locationDidChangeAuthorizationStatusNotification), object: nil)
 
         if status != .notDetermined {
-
-            for fulfillment in askForLocationServicesFulfillments {
-                fulfillment(status)
-            }
+            askForLocationServicesFulfillments.forEach { $0(status) }
         }
     }
     
@@ -270,16 +268,14 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
             lastKnownLocation = lastLocation
             
-            for (_,request) in locationRequests.enumerated() {
+            for (_ , request) in locationRequests.enumerated() {
 
-                if request.completeWithLocation(lastLocation) {
-                    removeLocationRequest(request)
+                if request.completeWith(location: lastLocation) {
+                    remove(locationRequest: request)
                 }
             }
-            
-            for observer in locationObservers {
-                observer.updateLocation(lastLocation)
-            }
+
+            locationObservers.forEach { $0.update(location: lastLocation) }
 
             stopUpdatingLocationIfPossible()
         }

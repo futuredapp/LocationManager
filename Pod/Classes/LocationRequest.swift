@@ -34,7 +34,7 @@ class LocationRequest: NSObject {
         }
     }
     
-    func validateLocation(_ location: CLLocation) -> Bool {
+    func validate(location: CLLocation) -> Bool {
 
         if location.timestamp.timeIntervalSinceNow < -(self.timeout ?? 30) {
             return false
@@ -47,11 +47,10 @@ class LocationRequest: NSObject {
         return true
     }
     
-    func completeWithLocation(_ location: CLLocation?, force: Bool = false) -> Bool {
+    func completeWith(location: CLLocation?, force: Bool = false) -> Bool {
 
         if !force {
-
-            guard let _location = location , self.validateLocation(_location) else {
+            guard let location = location , self.validate(location: location) else {
                 return false
             }
         }
@@ -65,7 +64,7 @@ class LocationRequest: NSObject {
     
     func didTimeout() {
 
-        self.completeWithLocation(self.locationManager.lastKnownLocation, force: true)
+        self.completeWith(location: self.locationManager.lastKnownLocation, force: true)
         self.locationManager.locationRequestDidTimeout(self)
     }
 }

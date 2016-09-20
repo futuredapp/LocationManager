@@ -43,26 +43,26 @@ class LocationObserverItem: NSObject {
         deinitializeTimers()
     }
     
-    func validateLocation(_ location: CLLocation) -> Bool {
+    func validate(location: CLLocation) -> Bool {
 
         if let desiredAccuracy = desiredAccuracy , desiredAccuracy < location.horizontalAccuracy || desiredAccuracy < location.verticalAccuracy {
             return false
         }
 
-        if let distanceFilter = distanceFilter, let previousLocation = previousLocation , previousLocation.distance(from: location) <= distanceFilter {
+        if let distanceFilter = distanceFilter , let previousLocation = previousLocation , previousLocation.distance(from: location) <= distanceFilter {
             return false
         }
 
         return true
     }
     
-    func updateLocation(_ location: CLLocation?) {
+    func update(location: CLLocation?) {
 
-        guard let location = location , self.validateLocation(location) else {
+        guard let location = location , self.validate(location: location) else {
             return
         }
 
-        if self.validateLocation(location) {
+        if self.validate(location: location) {
 
             if self.minimumTimer != nil && self.previousLocation != nil {
                 self.newLocationForUpdate = location
