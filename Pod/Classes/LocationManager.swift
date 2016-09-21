@@ -71,11 +71,11 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
      * returns promise for authorization status on success, LocationManagerAuthorizationError on fail
      */
     
-    open class func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus>{
+    open class func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus> {
         return self.sharedManager.askForLocationServicesIfNeeded()
     }
     
-    open func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus>{
+    open func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus> {
 
         return Promise { fulfill , reject in
 
@@ -97,7 +97,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
             if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil {
 
-                if locationManager.responds(to: #selector(CLLocationManager.requestAlwaysAuthorization)){
+                if locationManager.responds(to: #selector(CLLocationManager.requestAlwaysAuthorization)) {
                     locationManager.requestAlwaysAuthorization()
                 }
 

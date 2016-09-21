@@ -9,7 +9,7 @@
 import CoreLocation
 
 public protocol LocationObserver: AnyObject {
-    func didUpdateLocation(_ manager: LocationManager, location: CLLocation)
+    func didUpdate(manager: LocationManager, newLocation: CLLocation)
 }
 
 class LocationObserverItem: NSObject {
@@ -67,7 +67,7 @@ class LocationObserverItem: NSObject {
             if self.minimumTimer != nil && self.previousLocation != nil {
                 self.newLocationForUpdate = location
             } else {
-                self.observer.didUpdateLocation(self.locationManager, location: location)
+                self.observer.didUpdate(manager: self.locationManager, newLocation: location)
                 self.previousLocation = location
             }
         }
@@ -110,7 +110,7 @@ class LocationObserverItem: NSObject {
     
     func updateLocationFromTimer(_ location: CLLocation) {
 
-        self.observer.didUpdateLocation(self.locationManager, location: location)
+        self.observer.didUpdate(manager: self.locationManager, newLocation: location)
         self.previousLocation = location
         self.newLocationForUpdate = nil
     }
