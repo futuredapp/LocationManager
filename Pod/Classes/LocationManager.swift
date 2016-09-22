@@ -268,7 +268,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
             lastKnownLocation = lastLocation
             
-            for (_ , request) in locationRequests.enumerated() {
+            for (_, request) in locationRequests.enumerated() {
 
                 if request.completeWith(location: lastLocation) {
                     remove(locationRequest: request)

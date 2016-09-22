@@ -27,13 +27,13 @@ class ViewController: UIViewController {
 
         super.viewDidAppear(animated)
 
-        self.refreshLocation(self.locationLabel)
-        self.didUpdateInterface(self)
+        refreshLocation(locationLabel)
+        didUpdateInterface(self)
     }
     
     @IBAction func refreshLocation(_ sender: AnyObject) {
 
-        self.locationRequestLabel.text = "...\n"
+        locationRequestLabel.text = "...\n"
 
         LocationManager.getCurrentLocation().then { location in
             self.locationRequestLabel.text = "lat: \(location.coordinate.latitude)\nlng: \(location.coordinate.longitude)"
@@ -44,10 +44,10 @@ class ViewController: UIViewController {
     
     @IBAction func didUpdateInterface(_ sender: AnyObject) {
 
-        self.distanceFilterLabel.text = "Distance (\(Int(self.distanceFilterSlider.value))m)"
-        self.minimumIntervalLabel.text = "Minimum interval (\(Int(self.minimumIntervalSlider.value))s)"
-        self.maximumIntervalLabel.text = "Minimum interval (\(Int(self.maximumIntervalSlider.value))s) – forces call even without new location"
-        self.updateValuesAndInitializeObserver()
+        distanceFilterLabel.text = "Distance (\(Int(distanceFilterSlider.value))m)"
+        minimumIntervalLabel.text = "Minimum interval (\(Int(minimumIntervalSlider.value))s)"
+        maximumIntervalLabel.text = "Minimum interval (\(Int(maximumIntervalSlider.value))s) – forces call even without new location"
+        updateValuesAndInitializeObserver()
     }
     
     func updateValuesAndInitializeObserver() {
@@ -58,11 +58,11 @@ class ViewController: UIViewController {
             self.observer = nil
         }
 
-        let observer = LocationObserverLabel(label: self.locationLabel)
+        let observer = LocationObserverLabel(label: locationLabel)
         self.observer = observer
-        let minimumTimeInterval: Double? = self.minimumIntervalSlider.value == 0 ? nil : Double(self.minimumIntervalSlider.value)
-        let maximumTimeInterval: Double? = self.maximumIntervalSlider.value == 0 ? nil : Double(self.maximumIntervalSlider.value)
+        let minimumTimeInterval: Double? = minimumIntervalSlider.value == 0 ? nil : Double(minimumIntervalSlider.value)
+        let maximumTimeInterval: Double? = maximumIntervalSlider.value == 0 ? nil : Double(maximumIntervalSlider.value)
 
-        LocationManager.add(locationObserver: observer, distanceFilter: Double(self.distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+        LocationManager.add(locationObserver: observer, distanceFilter: Double(distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
     }
 }

@@ -50,22 +50,22 @@ class LocationRequest: NSObject {
     func completeWith(location: CLLocation?, force: Bool = false) -> Bool {
 
         if !force {
-            guard let location = location , self.validate(location: location) else {
+            guard let location = location, validate(location: location) else {
                 return false
             }
         }
 
-        self.completion(location)
-        self.timer?.invalidate()
-        self.timer = nil
+        completion(location)
+        timer?.invalidate()
+        timer = nil
 
         return true
     }
     
     func didTimeout() {
 
-        self.completeWith(location: self.locationManager.lastKnownLocation, force: true)
-        self.locationManager.locationRequestDidTimeout(self)
+        completeWith(location: locationManager.lastKnownLocation, force: true)
+        locationManager.locationRequestDidTimeout(self)
     }
 }
 

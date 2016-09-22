@@ -19,6 +19,6 @@ class LocationObserverLabel: LocationObserver {
     }
     
     func didUpdate(manager: LocationManager, newLocation: CLLocation) {
-        self.label.text = "lat: \(newLocation.coordinate.latitude)\nlng: \(newLocation.coordinate.longitude)"
+        label.text = "lat: \(newLocation.coordinate.latitude)\nlng: \(newLocation.coordinate.longitude)"
     }
 }
