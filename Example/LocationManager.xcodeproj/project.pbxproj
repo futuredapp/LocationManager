@@ -48,6 +48,7 @@
 		C23A149381E8106E79868636 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		D60DA8886D0A619E49C94B7C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		EE16D7D51C80784300D93EC6 /* LocationObserverLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationObserverLabel.swift; sourceTree = "<group>"; };
+		F182C6091D8C136E001230FF /* LocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocationManager.framework; path = "Pods/../build/Debug-iphoneos/LocationManager/LocationManager.framework"; sourceTree = "<group>"; };
 		FB291CA350F4308F155662BA /* Pods-LocationManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationManager_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +75,7 @@
 		3A1D4C0EC174936D687AE5E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F182C6091D8C136E001230FF /* LocationManager.framework */,
 				1F6A9CCE596BAC7E7CF7A1BC /* Pods_LocationManager_Example.framework */,
 				4916F7C31FB6364BE4886970 /* Pods_LocationManager_Tests.framework */,
 			);
@@ -169,12 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LocationManager_Example" */;
 			buildPhases = (
-				93BD9345C0BA9A31E10BE21D /* Check Pods Manifest.lock */,
+				93BD9345C0BA9A31E10BE21D /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				A63A9D2756A4ACE49672D8FC /* Embed Pods Frameworks */,
-				FCF4C176358CDC23D434020D /* Copy Pods Resources */,
+				A63A9D2756A4ACE49672D8FC /* [CP] Embed Pods Frameworks */,
+				FCF4C176358CDC23D434020D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,12 +191,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LocationManager_Tests" */;
 			buildPhases = (
-				AC28E080CCD6D0DE245F466D /* Check Pods Manifest.lock */,
+				AC28E080CCD6D0DE245F466D /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				BC530D93F1D3EC1351E054AE /* Embed Pods Frameworks */,
-				A977B71CF4CA68F7B3E624C5 /* Copy Pods Resources */,
+				BC530D93F1D3EC1351E054AE /* [CP] Embed Pods Frameworks */,
+				A977B71CF4CA68F7B3E624C5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,9 +220,13 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = LLW79T3K9U;
+						LastSwiftMigration = 0800;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = LLW79T3K9U;
+						LastSwiftMigration = 0800;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -265,14 +271,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		93BD9345C0BA9A31E10BE21D /* Check Pods Manifest.lock */ = {
+		93BD9345C0BA9A31E10BE21D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,14 +286,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A63A9D2756A4ACE49672D8FC /* Embed Pods Frameworks */ = {
+		A63A9D2756A4ACE49672D8FC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,14 +301,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A977B71CF4CA68F7B3E624C5 /* Copy Pods Resources */ = {
+		A977B71CF4CA68F7B3E624C5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,14 +316,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AC28E080CCD6D0DE245F466D /* Check Pods Manifest.lock */ = {
+		AC28E080CCD6D0DE245F466D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,14 +331,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		BC530D93F1D3EC1351E054AE /* Embed Pods Frameworks */ = {
+		BC530D93F1D3EC1351E054AE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,14 +346,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FCF4C176358CDC23D434020D /* Copy Pods Resources */ = {
+		FCF4C176358CDC23D434020D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,11 +499,17 @@
 			baseConfigurationReference = FB291CA350F4308F155662BA /* Pods-LocationManager_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LLW79T3K9U;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/LocationManager",
+				);
 				INFOPLIST_FILE = LocationManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -506,11 +518,17 @@
 			baseConfigurationReference = 59CDC76D896A98C643CE6CB7 /* Pods-LocationManager_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LLW79T3K9U;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/LocationManager",
+				);
 				INFOPLIST_FILE = LocationManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -519,6 +537,7 @@
 			baseConfigurationReference = 44BC93FA80CC2F7B5CDBD5C8 /* Pods-LocationManager_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = LLW79T3K9U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -531,6 +550,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LocationManager_Example.app/LocationManager_Example";
 			};
 			name = Debug;
@@ -540,6 +560,7 @@
 			baseConfigurationReference = 78E40BF8AB99116852D94F08 /* Pods-LocationManager_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = LLW79T3K9U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -548,6 +569,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LocationManager_Example.app/LocationManager_Example";
 			};
 			name = Release;

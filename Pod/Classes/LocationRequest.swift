@@ -10,16 +10,18 @@
 
 import CoreLocation
 
-typealias LocationCompletion = CLLocation? -> Void
+typealias LocationCompletion = (CLLocation?) -> Void
 
 class LocationRequest: NSObject {
+
     let completion: LocationCompletion
     let locationManager: LocationManager
     var desiredAccuracy: CLLocationAccuracy?
-    var timeout: NSTimeInterval?
-    var timer: NSTimer?
+    var timeout: TimeInterval?
+    var timer: Timer?
     
-    init(timeout: NSTimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: LocationCompletion, locationManager: LocationManager) {
+    init(timeout: TimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: @escaping LocationCompletion, locationManager: LocationManager) {
+
         self.completion = completion
         self.timeout = timeout
         self.desiredAccuracy = desiredAccuracy
@@ -28,37 +30,43 @@ class LocationRequest: NSObject {
         super.init()
         
         if let timeout = timeout {
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: #selector(didTimeout), userInfo: nil, repeats: false)
+            self.timer = Timer.scheduledTimer(timeInterval: timeout, target: self, selector: #selector(didTimeout), userInfo: nil, repeats: false)
         }
     }
     
-    func validateLocation(location: CLLocation) -> Bool {
+    func validate(location: CLLocation) -> Bool {
+
         if location.timestamp.timeIntervalSinceNow < -(self.timeout ?? 30) {
             return false
         }
+
         if let desiredAccuracy = self.desiredAccuracy {
             return location.horizontalAccuracy <= desiredAccuracy && location.verticalAccuracy <= desiredAccuracy
         }
+
         return true
     }
     
-    func completeWithLocation(location: CLLocation?, force: Bool = false) -> Bool {
+    func completeWith(location: CLLocation?, force: Bool = false) -> Bool {
+
         if !force {
-            guard let _location = location where self.validateLocation(_location) else {
+            guard let location = location, validate(location: location) else {
                 return false
             }
         }
-        self.completion(location)
-        self.timer?.invalidate()
-        self.timer = nil
+
+        completion(location)
+        timer?.invalidate()
+        timer = nil
+
         return true
     }
     
     func didTimeout() {
-        self.completeWithLocation(self.locationManager.lastKnownLocation, force: true)
-        self.locationManager.locationRequestDidTimeout(self)
+
+        completeWith(location: locationManager.lastKnownLocation, force: true)
+        locationManager.locationRequestDidTimeout(self)
     }
-    
 }
 
 func ==(lhs: LocationRequest, rhs: LocationRequest) -> Bool {
