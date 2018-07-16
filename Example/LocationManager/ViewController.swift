@@ -9,6 +9,7 @@
 import UIKit
 import LocationManager
 import CoreLocation
+import PromiseKit
 
 class ViewController: UIViewController {
 
@@ -34,12 +35,15 @@ class ViewController: UIViewController {
     @IBAction func refreshLocation(_ sender: AnyObject) {
 
         locationRequestLabel.text = "...\n"
-
-        LocationManager.getCurrentLocation().then { location in
-            self.locationRequestLabel.text = "lat: \(location.coordinate.latitude)\nlng: \(location.coordinate.longitude)"
-        }.catch { error in
-           self.locationRequestLabel.text = "cannot fetch location"
+        
+        LocationManager.getCurrentLocation().done { location in
+            let user_lat = String(format: "%f", location.coordinate.latitude)
+            let user_long = String(format: "%f", location.coordinate.longitude)
+            self.locationRequestLabel.text = "lat: \(user_lat)\nlng: \(user_long)"
+        }.catch {error in
+            self.locationRequestLabel.text = "cannot fetch location"
         }
+        
     }
     
     @IBAction func didUpdateInterface(_ sender: AnyObject) {
@@ -50,7 +54,7 @@ class ViewController: UIViewController {
         updateValuesAndInitializeObserver()
     }
     
-    func updateValuesAndInitializeObserver() {
+    @objc func updateValuesAndInitializeObserver() {
 
         if let currentObserver = self.observer {
 
