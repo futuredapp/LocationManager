@@ -23,21 +23,21 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     typealias AuthorizationFulfillment = (CLAuthorizationStatus) -> Void
 
-    open static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
-    open static let sharedManager = LocationManager()
+    @objc open static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
+    @objc open static let sharedManager = LocationManager()
 
-    var currentLocation: CLLocation?
-    internal var lastKnownLocation: CLLocation?
+    @objc var currentLocation: CLLocation?
+    @objc internal var lastKnownLocation: CLLocation?
     
     fileprivate var locationRequests = [LocationRequest]()
     fileprivate var locationObservers: Set<LocationObserverItem> = []
     fileprivate var askForLocationServicesFulfillments = [AuthorizationFulfillment]()
     fileprivate let locationManager = CLLocationManager()
 
-    open static var locationObserversCount: Int {
+    @objc open static var locationObserversCount: Int {
         return self.sharedManager.locationObserversCount
     }
-    open var locationObserversCount: Int {
+    @objc open var locationObserversCount: Int {
         return self.locationObservers.count
     }
 
@@ -50,19 +50,19 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = 0
     }
     
-    open class func isLocationStatusDetermined() -> Bool {
+    @objc open class func isLocationStatusDetermined() -> Bool {
         return self.sharedManager.isLocationStatusDetermined()
     }
     
-    open func isLocationStatusDetermined() -> Bool {
+    @objc open func isLocationStatusDetermined() -> Bool {
         return CLLocationManager.authorizationStatus() != CLAuthorizationStatus.notDetermined
     }
     
-    open class func isLocationAvailable() -> Bool {
+    @objc open class func isLocationAvailable() -> Bool {
         return sharedManager.isLocationAvailable()
     }
     
-    open func isLocationAvailable() -> Bool {
+    @objc open func isLocationAvailable() -> Bool {
         return CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse)
     }
     
@@ -77,16 +77,17 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     open func askForLocationServicesIfNeeded() -> Promise<CLAuthorizationStatus> {
 
-        return Promise { fulfill , reject in
-
+        let promise = Promise<CLAuthorizationStatus> { seal in
             if isLocationStatusDetermined() {
-                return fulfill(CLLocationManager.authorizationStatus())
+                return seal.fulfill(CLLocationManager.authorizationStatus())
             }
-
+            
             askWith(fulfillment: { (status: CLAuthorizationStatus) -> Void in
-                fulfill(status)
-            }, rejection: reject)
+                seal.fulfill(status)
+            }, rejection: seal.reject)
         }
+        return promise
+        
     }
     
     fileprivate func askWith(fulfillment: @escaping AuthorizationFulfillment, rejection: (Error) -> Void) -> Void {
@@ -119,7 +120,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func startUpdatingLocationIfNeeded() {
+    @objc func startUpdatingLocationIfNeeded() {
 
         if locationRequests.count > 0 || locationObservers.count > 0 {
 
@@ -130,7 +131,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         updateLocationManagerSettings()
     }
     
-    func stopUpdatingLocationIfPossible() {
+    @objc func stopUpdatingLocationIfPossible() {
 
         if locationRequests.count == 0 && locationObservers.count == 0 {
             locationManager.stopUpdatingLocation()
@@ -139,7 +140,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         updateLocationManagerSettings()
     }
     
-    func updateLocationManagerSettings() {
+    @objc func updateLocationManagerSettings() {
 
         let requestsDesiredAccuracy = locationRequests.map { (request) -> CLLocationAccuracy in
             return request.desiredAccuracy ?? 0
@@ -180,31 +181,30 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
             if !self.isLocationAvailable() {
                 throw LocationManagerError.locationServiceDisabled
             }
-
-            return Promise { success, reject in
-
+            let promise = Promise<CLLocation> { seal in
                 if let currentLocation = self.currentLocation, !force {
-                    success(currentLocation)
+                    seal.resolve(currentLocation, nil)
                 } else {
 
                     self.updateLocation(timeout: timeout,desiredAccuracy: desiredAccuracy) { location in
 
                         if let location = location {
-                            success(location)
+                            seal.resolve(location, nil)
                         } else {
-                            reject(LocationManagerError.cannotFetchLocation)
+                            seal.resolve(nil, LocationManagerError.cannotFetchLocation)
                         }
                     }
                 }
             }
+            return promise
         }
     }
     
-    internal func locationRequestDidTimeout(_ request: LocationRequest) {
+    @objc internal func locationRequestDidTimeout(_ request: LocationRequest) {
         remove(locationRequest: request)
     }
     
-    internal func remove(locationRequest: LocationRequest) {
+    @objc internal func remove(locationRequest: LocationRequest) {
 
         if let index = locationRequests.index(of: locationRequest) {
             locationRequests.remove(at: index)

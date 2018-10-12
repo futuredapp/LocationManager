@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "LocationManager"
-  s.version          = "2.0.0"
+  s.version          = "2.0.1"
   s.summary          = "CoreLocation wrapper for handling locations with ease."
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/thefuntasty/LocationManager.git", :tag => s.version.to_s }
 #s.social_media_url = 'https://twitter.com/thefuntasty'
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '11.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
@@ -37,5 +37,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'PromiseKit', '~> 4.0'
+  s.dependency 'PromiseKit', '~> 6.0'
 end

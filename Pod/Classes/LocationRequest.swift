@@ -14,11 +14,11 @@ typealias LocationCompletion = (CLLocation?) -> Void
 
 class LocationRequest: NSObject {
 
-    let completion: LocationCompletion
-    let locationManager: LocationManager
+    @objc let completion: LocationCompletion
+    @objc let locationManager: LocationManager
     var desiredAccuracy: CLLocationAccuracy?
     var timeout: TimeInterval?
-    var timer: Timer?
+    @objc var timer: Timer?
     
     init(timeout: TimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: @escaping LocationCompletion, locationManager: LocationManager) {
 
@@ -34,7 +34,7 @@ class LocationRequest: NSObject {
         }
     }
     
-    func validate(location: CLLocation) -> Bool {
+    @objc func validate(location: CLLocation) -> Bool {
 
         if location.timestamp.timeIntervalSinceNow < -(self.timeout ?? 30) {
             return false
@@ -47,7 +47,7 @@ class LocationRequest: NSObject {
         return true
     }
     
-    func completeWith(location: CLLocation?, force: Bool = false) -> Bool {
+    @objc func completeWith(location: CLLocation?, force: Bool = false) -> Bool {
 
         if !force {
             guard let location = location, validate(location: location) else {
@@ -62,7 +62,7 @@ class LocationRequest: NSObject {
         return true
     }
     
-    func didTimeout() {
+    @objc func didTimeout() {
 
         completeWith(location: locationManager.lastKnownLocation, force: true)
         locationManager.locationRequestDidTimeout(self)

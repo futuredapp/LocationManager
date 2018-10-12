@@ -26,12 +26,13 @@ pod "LocationManager"
 
 ```swift
 import LocationManager
+import PromiseKit
 
 let desiredAccuracy: CLLocationAccuracy? = kCLLocationAccuracyBestForNavigation
 
-LocationManager.sharedManager.getCurrentLocation(desiredAccuracy: desiredAccuracy).then { location in
+LocationManager.sharedManager.getCurrentLocation(desiredAccuracy: desiredAccuracy).done { location in
     print("your current location: \(location)")
-}.error { error in
+}.catch {error in
     print("error getting location: \(error)")
 }
 ```
