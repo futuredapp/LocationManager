@@ -267,14 +267,9 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         if let lastLocation = locations.last {
 
             lastKnownLocation = lastLocation
+
+            locationRequests.filter { $0.completeWith(location: lastLocation) }.forEach(remove)
             
-            for (_, request) in locationRequests.enumerated() {
-
-                if request.completeWith(location: lastLocation) {
-                    remove(locationRequest: request)
-                }
-            }
-
             locationObservers.forEach { $0.update(location: lastLocation) }
 
             stopUpdatingLocationIfPossible()
