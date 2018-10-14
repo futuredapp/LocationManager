@@ -23,8 +23,8 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     typealias AuthorizationFulfillment = (CLAuthorizationStatus) -> Void
 
-    @objc open static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
-    @objc open static let sharedManager = LocationManager()
+    @objc public static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
+    @objc public static let sharedManager = LocationManager()
 
     @objc var currentLocation: CLLocation?
     @objc internal var lastKnownLocation: CLLocation?
@@ -34,7 +34,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     fileprivate var askForLocationServicesFulfillments = [AuthorizationFulfillment]()
     fileprivate let locationManager = CLLocationManager()
 
-    @objc open static var locationObserversCount: Int {
+    @objc public static var locationObserversCount: Int {
         return self.sharedManager.locationObserversCount
     }
     @objc open var locationObserversCount: Int {
@@ -122,9 +122,9 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     @objc func startUpdatingLocationIfNeeded() {
 
-        if locationRequests.count > 0 || locationObservers.count > 0 {
+        if !locationRequests.isEmpty || !locationObservers.isEmpty {
 
-            askForLocationServicesIfNeeded()
+            _ = askForLocationServicesIfNeeded()
             locationManager.startUpdatingLocation()
         }
 
@@ -133,7 +133,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     @objc func stopUpdatingLocationIfPossible() {
 
-        if locationRequests.count == 0 && locationObservers.count == 0 {
+        if locationRequests.isEmpty && locationObservers.isEmpty {
             locationManager.stopUpdatingLocation()
         }
 
