@@ -92,32 +92,34 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     fileprivate func askWith(fulfillment: @escaping AuthorizationFulfillment, rejection: (Error) -> Void) -> Void {
 
-        var rejected = false
-
-        if askForLocationServicesFulfillments.count == 0 {
-
+        if !setupRequestPermissionsStrategy(rejection: rejection) {
+            askForLocationServicesFulfillments.append(fulfillment)
+        }
+    }
+    
+    private func setupRequestPermissionsStrategy(rejection: (Error) -> Void) -> Bool {
+        
+        if askForLocationServicesFulfillments.isEmpty {
+            
             if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil {
-
+                
                 if locationManager.responds(to: #selector(CLLocationManager.requestAlwaysAuthorization)) {
                     locationManager.requestAlwaysAuthorization()
                 }
-
+                
             } else if Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseUsageDescription") != nil {
-
+                
                 if locationManager.responds(to: #selector(CLLocationManager.requestWhenInUseAuthorization)) {
                     locationManager.requestWhenInUseAuthorization();
                 }
-
+                
             } else {
-
+                
                 rejection(LocationManagerAuthorizationError.keyInPlistMissing)
-                rejected = true
+                return true
             }
         }
-
-        if !rejected {
-            askForLocationServicesFulfillments.append(fulfillment)
-        }
+        return false
     }
     
     @objc func startUpdatingLocationIfNeeded() {
@@ -156,7 +158,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
            locationManager.desiredAccuracy = desiredAccuracy
         }
         
-        if locationRequests.count == 0 {
+        if locationRequests.isEmpty {
 
             let observersDistanceFilter = locationObservers.map { (observer) -> CLLocationAccuracy in
                 return observer.distanceFilter ?? 0
