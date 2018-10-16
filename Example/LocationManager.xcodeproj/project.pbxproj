@@ -293,7 +293,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/LocationManager/LocationManager.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 			);
@@ -304,7 +304,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LocationManager_Example/Pods-LocationManager_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AC28E080CCD6D0DE245F466D /* [CP] Check Pods Manifest.lock */ = {
@@ -331,7 +331,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/LocationManager/LocationManager.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 			);
@@ -342,7 +342,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LocationManager_Tests/Pods-LocationManager_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

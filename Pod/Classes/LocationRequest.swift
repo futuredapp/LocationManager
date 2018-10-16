@@ -64,7 +64,7 @@ class LocationRequest: NSObject {
     
     @objc func didTimeout() {
 
-        completeWith(location: locationManager.lastKnownLocation, force: true)
+        _ = completeWith(location: locationManager.lastKnownLocation, force: true)
         locationManager.locationRequestDidTimeout(self)
     }
 }
