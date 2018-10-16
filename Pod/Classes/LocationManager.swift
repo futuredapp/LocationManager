@@ -23,8 +23,8 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     typealias AuthorizationFulfillment = (CLAuthorizationStatus) -> Void
 
-    @objc open static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
-    @objc open static let sharedManager = LocationManager()
+    @objc public static let locationDidChangeAuthorizationStatusNotification = "locationDidChangeAuthorizationStatusNotification"
+    @objc public static let sharedManager = LocationManager()
 
     @objc var currentLocation: CLLocation?
     @objc internal var lastKnownLocation: CLLocation?
@@ -34,7 +34,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     fileprivate var askForLocationServicesFulfillments = [AuthorizationFulfillment]()
     fileprivate let locationManager = CLLocationManager()
 
-    @objc open static var locationObserversCount: Int {
+    @objc public static var locationObserversCount: Int {
         return self.sharedManager.locationObserversCount
     }
     @objc open var locationObserversCount: Int {
@@ -92,39 +92,41 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     fileprivate func askWith(fulfillment: @escaping AuthorizationFulfillment, rejection: (Error) -> Void) -> Void {
 
-        var rejected = false
-
-        if askForLocationServicesFulfillments.count == 0 {
-
-            if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil {
-
-                if locationManager.responds(to: #selector(CLLocationManager.requestAlwaysAuthorization)) {
-                    locationManager.requestAlwaysAuthorization()
-                }
-
-            } else if Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseUsageDescription") != nil {
-
-                if locationManager.responds(to: #selector(CLLocationManager.requestWhenInUseAuthorization)) {
-                    locationManager.requestWhenInUseAuthorization();
-                }
-
-            } else {
-
-                rejection(LocationManagerAuthorizationError.keyInPlistMissing)
-                rejected = true
-            }
-        }
-
-        if !rejected {
+        if !setupRequestPermissionsStrategy(rejection: rejection) {
             askForLocationServicesFulfillments.append(fulfillment)
         }
     }
     
+    private func setupRequestPermissionsStrategy(rejection: (Error) -> Void) -> Bool {
+        
+        if askForLocationServicesFulfillments.isEmpty {
+            
+            if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil {
+                
+                if locationManager.responds(to: #selector(CLLocationManager.requestAlwaysAuthorization)) {
+                    locationManager.requestAlwaysAuthorization()
+                }
+                
+            } else if Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseUsageDescription") != nil {
+                
+                if locationManager.responds(to: #selector(CLLocationManager.requestWhenInUseAuthorization)) {
+                    locationManager.requestWhenInUseAuthorization();
+                }
+                
+            } else {
+                
+                rejection(LocationManagerAuthorizationError.keyInPlistMissing)
+                return true
+            }
+        }
+        return false
+    }
+    
     @objc func startUpdatingLocationIfNeeded() {
 
-        if locationRequests.count > 0 || locationObservers.count > 0 {
+        if !locationRequests.isEmpty || !locationObservers.isEmpty {
 
-            askForLocationServicesIfNeeded()
+            _ = askForLocationServicesIfNeeded()
             locationManager.startUpdatingLocation()
         }
 
@@ -133,7 +135,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
     
     @objc func stopUpdatingLocationIfPossible() {
 
-        if locationRequests.count == 0 && locationObservers.count == 0 {
+        if locationRequests.isEmpty && locationObservers.isEmpty {
             locationManager.stopUpdatingLocation()
         }
 
@@ -156,7 +158,7 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
            locationManager.desiredAccuracy = desiredAccuracy
         }
         
-        if locationRequests.count == 0 {
+        if locationRequests.isEmpty {
 
             let observersDistanceFilter = locationObservers.map { (observer) -> CLLocationAccuracy in
                 return observer.distanceFilter ?? 0
@@ -267,14 +269,9 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         if let lastLocation = locations.last {
 
             lastKnownLocation = lastLocation
+
+            locationRequests.filter { $0.completeWith(location: lastLocation) }.forEach(remove)
             
-            for (_, request) in locationRequests.enumerated() {
-
-                if request.completeWith(location: lastLocation) {
-                    remove(locationRequest: request)
-                }
-            }
-
             locationObservers.forEach { $0.update(location: lastLocation) }
 
             stopUpdatingLocationIfPossible()
