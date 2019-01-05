@@ -25,7 +25,12 @@ class LocationObserverItem: NSObject {
     @objc var minimumTimer: Timer?
     @objc var maximumTimer: Timer?
 
-    init(locationObserver: LocationObserver, locationManager: LocationManager, desiredAccuracy: CLLocationAccuracy?, distanceFilter: CLLocationDistance?, minimumTimeInterval: TimeInterval?, maximumTimeInterval: TimeInterval?) {
+    init(locationObserver: LocationObserver,
+         locationManager: LocationManager,
+         desiredAccuracy: CLLocationAccuracy?,
+         distanceFilter: CLLocationDistance?,
+         minimumTimeInterval: TimeInterval?,
+         maximumTimeInterval: TimeInterval?) {
 
         observer = locationObserver
         self.locationManager = locationManager
@@ -45,11 +50,15 @@ class LocationObserverItem: NSObject {
 
     @objc func validate(location: CLLocation) -> Bool {
 
-        if let desiredAccuracy = desiredAccuracy, desiredAccuracy < location.horizontalAccuracy || desiredAccuracy < location.verticalAccuracy {
+        if let desiredAccuracy = desiredAccuracy,
+           desiredAccuracy < location.horizontalAccuracy ||
+           desiredAccuracy < location.verticalAccuracy {
             return false
         }
 
-        if let distanceFilter = distanceFilter, let previousLocation = previousLocation, previousLocation.distance(from: location) <= distanceFilter {
+        if let distanceFilter = distanceFilter,
+           let previousLocation = previousLocation,
+           previousLocation.distance(from: location) <= distanceFilter {
             return false
         }
 
@@ -86,11 +95,19 @@ class LocationObserverItem: NSObject {
     @objc func initializeTimers() {
 
         if let interval = minimumTimeInterval {
-            minimumTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(minimumTimerTick), userInfo: nil, repeats: true)
+            minimumTimer = Timer.scheduledTimer(timeInterval: interval,
+                                                target: self,
+                                                selector: #selector(minimumTimerTick),
+                                                userInfo: nil,
+                                                repeats: true)
         }
 
         if let interval = maximumTimeInterval {
-            maximumTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(maximumTimerTick), userInfo: nil, repeats: true)
+            maximumTimer = Timer.scheduledTimer(timeInterval: interval,
+                                                target: self,
+                                                selector: #selector(maximumTimerTick),
+                                                userInfo: nil,
+                                                repeats: true)
         }
     }
 
@@ -116,6 +133,6 @@ class LocationObserverItem: NSObject {
     }
 }
 
-func ==(llo: LocationObserverItem, rlo: LocationObserverItem) -> Bool {
+func == (llo: LocationObserverItem, rlo: LocationObserverItem) -> Bool {
     return llo === rlo
 }

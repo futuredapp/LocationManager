@@ -19,7 +19,10 @@ class LocationRequest: NSObject {
     var timeout: TimeInterval?
     @objc var timer: Timer?
 
-    init(timeout: TimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: @escaping LocationCompletion, locationManager: LocationManager) {
+    init(timeout: TimeInterval?,
+         desiredAccuracy: CLLocationAccuracy?,
+         completion: @escaping LocationCompletion,
+         locationManager: LocationManager) {
 
         self.completion = completion
         self.timeout = timeout
@@ -29,7 +32,11 @@ class LocationRequest: NSObject {
         super.init()
 
         if let timeout = timeout {
-            self.timer = Timer.scheduledTimer(timeInterval: timeout, target: self, selector: #selector(didTimeout), userInfo: nil, repeats: false)
+            self.timer = Timer.scheduledTimer(timeInterval: timeout,
+                                              target: self,
+                                              selector: #selector(didTimeout),
+                                              userInfo: nil,
+                                              repeats: false)
         }
     }
 
@@ -68,6 +75,6 @@ class LocationRequest: NSObject {
     }
 }
 
-func ==(lhs: LocationRequest, rhs: LocationRequest) -> Bool {
+func == (lhs: LocationRequest, rhs: LocationRequest) -> Bool {
     return lhs === rhs
 }
