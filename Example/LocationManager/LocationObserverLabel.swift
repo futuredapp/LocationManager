@@ -13,11 +13,11 @@ import CoreLocation
 class LocationObserverLabel: LocationObserver {
 
     let label: UILabel
-    
+
     init(label: UILabel) {
         self.label = label
     }
-    
+
     func didUpdate(manager: LocationManager, newLocation: CLLocation) {
         label.text = "lat: \(newLocation.coordinate.latitude)\nlng: \(newLocation.coordinate.longitude)"
     }
