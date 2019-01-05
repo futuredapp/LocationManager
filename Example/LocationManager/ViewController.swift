@@ -9,7 +9,6 @@
 import UIKit
 import LocationManager
 import CoreLocation
-import PromiseKit
 
 class ViewController: UIViewController {
 

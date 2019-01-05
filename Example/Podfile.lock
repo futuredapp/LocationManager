@@ -1,6 +1,6 @@
 PODS:
   - LocationManager (2.0.1):
-    - PromiseKit (~> 6.0)
+    - PromiseKit (~> 6.7)
   - PromiseKit (6.7.1):
     - PromiseKit/CorePromise (= 6.7.1)
     - PromiseKit/Foundation (= 6.7.1)
@@ -14,8 +14,8 @@ PODS:
 
 DEPENDENCIES:
   - LocationManager (from `../`)
-  - PromiseKit (~> 6.0)
-  - SwiftLint
+  - PromiseKit (~> 6.7)
+  - SwiftLint (= 0.29.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -27,10 +27,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LocationManager: 66d3830848110d9812cc6307bcffbc014089bf08
+  LocationManager: 390c350563ba026b656160c3145e88de4c5e766d
   PromiseKit: ef376fb8b4e92edfeb66bd403b983eaa07fbde0c
   SwiftLint: 47df60bdea6e7e902b193b6596db8683aafd86a3
 
-PODFILE CHECKSUM: 10c39254172fbb841bd053f433dfdc6827b5b996
+PODFILE CHECKSUM: 3d536b40dd8629fe3178cde38f10e084379d91da
 
 COCOAPODS: 1.6.0.beta.2
