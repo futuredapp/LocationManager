@@ -4,16 +4,8 @@ platform :ios, '11.0'
 
 target 'LocationManager_Example' do
   pod 'LocationManager', :path => '../'
-  pod "PromiseKit", "~> 6.0"
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '4.0'
-    end
-  end
-end
-
+  pod 'PromiseKit', '~> 6.7'
+  pod 'SwiftLint', '0.29.2'
 end
 
 target 'LocationManager_Tests' do
