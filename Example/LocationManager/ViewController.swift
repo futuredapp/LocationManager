@@ -36,9 +36,9 @@ class ViewController: UIViewController {
         locationRequestLabel.text = "...\n"
 
         LocationManager.getCurrentLocation().done { location in
-            let user_lat = String(format: "%f", location.coordinate.latitude)
-            let user_long = String(format: "%f", location.coordinate.longitude)
-            self.locationRequestLabel.text = "lat: \(user_lat)\nlng: \(user_long)"
+            let userLat = String(format: "%f", location.coordinate.latitude)
+            let userLong = String(format: "%f", location.coordinate.longitude)
+            self.locationRequestLabel.text = "lat: \(userLat)\nlng: \(userLong)"
         }.catch { _ in
             self.locationRequestLabel.text = "cannot fetch location"
         }
@@ -49,7 +49,10 @@ class ViewController: UIViewController {
 
         distanceFilterLabel.text = "Distance (\(Int(distanceFilterSlider.value))m)"
         minimumIntervalLabel.text = "Minimum interval (\(Int(minimumIntervalSlider.value))s)"
-        maximumIntervalLabel.text = "Minimum interval (\(Int(maximumIntervalSlider.value))s) – forces call even without new location"
+        maximumIntervalLabel.text = """
+            Minimum interval (\(Int(maximumIntervalSlider.value))s) –
+            forces call even without new location
+        """
         updateValuesAndInitializeObserver()
     }
 
@@ -66,6 +69,9 @@ class ViewController: UIViewController {
         let minimumTimeInterval: Double? = minimumIntervalSlider.value == 0 ? nil : Double(minimumIntervalSlider.value)
         let maximumTimeInterval: Double? = maximumIntervalSlider.value == 0 ? nil : Double(maximumIntervalSlider.value)
 
-        LocationManager.add(locationObserver: observer, distanceFilter: Double(distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+        LocationManager.add(locationObserver: observer,
+                            distanceFilter: Double(distanceFilterSlider.value),
+                            minimumTimeInterval: minimumTimeInterval,
+                            maximumTimeInterval: maximumTimeInterval)
     }
 }
