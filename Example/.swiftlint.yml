@@ -1,2 +1,4 @@
 excluded:
   - Pods/PromiseKit
+included:
+  - ../Pod
