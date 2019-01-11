@@ -92,7 +92,10 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     }
 
-    fileprivate func askWith(fulfillment: @escaping AuthorizationFulfillment, rejection: (Error) -> Void) {
+    fileprivate func askWith(
+        fulfillment: @escaping AuthorizationFulfillment,
+        rejection: (Error) -> Void
+    ) {
 
         if !setupRequestPermissionsStrategy(rejection: rejection) {
             askForLocationServicesFulfillments.append(fulfillment)
@@ -174,15 +177,19 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     // MARK: - Location requests
 
-    open class func getCurrentLocation(timeout: TimeInterval? = 8.0,
-                                       desiredAccuracy: CLLocationAccuracy? = nil,
-                                       force: Bool = false) -> Promise<CLLocation> {
+    open class func getCurrentLocation(
+        timeout: TimeInterval? = 8.0,
+        desiredAccuracy: CLLocationAccuracy? = nil,
+        force: Bool = false
+    ) -> Promise<CLLocation> {
         return sharedManager.getCurrentLocation(timeout: timeout, desiredAccuracy: desiredAccuracy, force: force)
     }
 
-    open func getCurrentLocation(timeout: TimeInterval? = 8.0,
-                                 desiredAccuracy: CLLocationAccuracy? = nil,
-                                 force: Bool = false) -> Promise<CLLocation> {
+    open func getCurrentLocation(
+        timeout: TimeInterval? = 8.0,
+        desiredAccuracy: CLLocationAccuracy? = nil,
+        force: Bool = false
+    ) -> Promise<CLLocation> {
 
         return askForLocationServicesIfNeeded().then { (_) -> Promise<CLLocation> in
 
@@ -221,11 +228,13 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     // MARK: - Location observers
 
-    open class func add(locationObserver: LocationObserver,
-                        desiredAccuracy: CLLocationAccuracy? = nil,
-                        distanceFilter: CLLocationDistance? = nil,
-                        minimumTimeInterval: TimeInterval? = nil,
-                        maximumTimeInterval: TimeInterval? = nil) {
+    open class func add(
+        locationObserver: LocationObserver,
+        desiredAccuracy: CLLocationAccuracy? = nil,
+        distanceFilter: CLLocationDistance? = nil,
+        minimumTimeInterval: TimeInterval? = nil,
+        maximumTimeInterval: TimeInterval? = nil
+    ) {
         sharedManager.add(locationObserver: locationObserver,
                           desiredAccuracy: desiredAccuracy,
                           distanceFilter: distanceFilter,
@@ -233,18 +242,22 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
                           maximumTimeInterval: maximumTimeInterval)
     }
 
-    open func add(locationObserver: LocationObserver,
-                  desiredAccuracy: CLLocationAccuracy? = nil,
-                  distanceFilter: CLLocationDistance? = nil,
-                  minimumTimeInterval: TimeInterval? = nil,
-                  maximumTimeInterval: TimeInterval? = nil) {
+    open func add(
+        locationObserver: LocationObserver,
+        desiredAccuracy: CLLocationAccuracy? = nil,
+        distanceFilter: CLLocationDistance? = nil,
+        minimumTimeInterval: TimeInterval? = nil,
+        maximumTimeInterval: TimeInterval? = nil
+    ) {
 
-        let item = LocationObserverItem(locationObserver: locationObserver,
-                                        locationManager: self,
-                                        desiredAccuracy: desiredAccuracy,
-                                        distanceFilter: distanceFilter,
-                                        minimumTimeInterval: minimumTimeInterval,
-                                        maximumTimeInterval: maximumTimeInterval)
+        let item = LocationObserverItem(
+            locationObserver: locationObserver,
+            locationManager: self,
+            desiredAccuracy: desiredAccuracy,
+            distanceFilter: distanceFilter,
+            minimumTimeInterval: minimumTimeInterval,
+            maximumTimeInterval: maximumTimeInterval
+        )
         locationObservers.insert(item)
 
         startUpdatingLocationIfNeeded()
@@ -266,14 +279,18 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         stopUpdatingLocationIfPossible()
     }
 
-    func updateLocation(timeout: TimeInterval?,
-                        desiredAccuracy: CLLocationAccuracy?,
-                        completion: @escaping LocationCompletion) {
+    func updateLocation(
+        timeout: TimeInterval?,
+        desiredAccuracy: CLLocationAccuracy?,
+        completion: @escaping LocationCompletion
+    ) {
 
-        let request = LocationRequest(timeout: timeout,
-                                      desiredAccuracy: desiredAccuracy,
-                                      completion: completion,
-                                      locationManager: self)
+        let request = LocationRequest(
+            timeout: timeout,
+            desiredAccuracy: desiredAccuracy,
+            completion: completion,
+            locationManager: self
+        )
 
         if !request.completeWith(location: lastKnownLocation) {
             locationRequests.append(request)
@@ -283,7 +300,10 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
 
     // MARK: - CLLocationManagerDelegate
 
-    open func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    open func locationManager(
+        _ manager: CLLocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus
+    ) {
 
         let notifName = Notification.Name(rawValue: LocationManager.locationDidChangeAuthorizationStatusNotification)
         NotificationCenter.default.post(name: notifName, object: nil)
@@ -293,7 +313,10 @@ open class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    open func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
 
         if let lastLocation = locations.last {
 

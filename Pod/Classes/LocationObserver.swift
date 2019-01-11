@@ -25,12 +25,14 @@ class LocationObserverItem: NSObject {
     @objc var minimumTimer: Timer?
     @objc var maximumTimer: Timer?
 
-    init(locationObserver: LocationObserver,
-         locationManager: LocationManager,
-         desiredAccuracy: CLLocationAccuracy?,
-         distanceFilter: CLLocationDistance?,
-         minimumTimeInterval: TimeInterval?,
-         maximumTimeInterval: TimeInterval?) {
+    init(
+        locationObserver: LocationObserver,
+        locationManager: LocationManager,
+        desiredAccuracy: CLLocationAccuracy?,
+        distanceFilter: CLLocationDistance?,
+        minimumTimeInterval: TimeInterval?,
+        maximumTimeInterval: TimeInterval?
+    ) {
 
         observer = locationObserver
         self.locationManager = locationManager
@@ -95,19 +97,23 @@ class LocationObserverItem: NSObject {
     @objc func initializeTimers() {
 
         if let interval = minimumTimeInterval {
-            minimumTimer = Timer.scheduledTimer(timeInterval: interval,
-                                                target: self,
-                                                selector: #selector(minimumTimerTick),
-                                                userInfo: nil,
-                                                repeats: true)
+            minimumTimer = Timer.scheduledTimer(
+                timeInterval: interval,
+                target: self,
+                selector: #selector(minimumTimerTick),
+                userInfo: nil,
+                repeats: true
+            )
         }
 
         if let interval = maximumTimeInterval {
-            maximumTimer = Timer.scheduledTimer(timeInterval: interval,
-                                                target: self,
-                                                selector: #selector(maximumTimerTick),
-                                                userInfo: nil,
-                                                repeats: true)
+            maximumTimer = Timer.scheduledTimer(
+                timeInterval: interval,
+                target: self,
+                selector: #selector(maximumTimerTick),
+                userInfo: nil,
+                repeats: true
+            )
         }
     }
 
