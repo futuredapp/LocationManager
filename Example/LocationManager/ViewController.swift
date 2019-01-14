@@ -9,11 +9,10 @@
 import UIKit
 import LocationManager
 import CoreLocation
-import PromiseKit
 
 class ViewController: UIViewController {
 
-    var observer: LocationObserverLabel? = nil
+    var observer: LocationObserverLabel?
 
     @IBOutlet var locationRequestLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
@@ -23,7 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var minimumIntervalSlider: UISlider!
     @IBOutlet weak var maximumIntervalLabel: UILabel!
     @IBOutlet weak var maximumIntervalSlider: UISlider!
-    
+
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
@@ -31,29 +30,32 @@ class ViewController: UIViewController {
         refreshLocation(locationLabel)
         didUpdateInterface(self)
     }
-    
+
     @IBAction func refreshLocation(_ sender: AnyObject) {
 
         locationRequestLabel.text = "...\n"
-        
+
         LocationManager.getCurrentLocation().done { location in
-            let user_lat = String(format: "%f", location.coordinate.latitude)
-            let user_long = String(format: "%f", location.coordinate.longitude)
-            self.locationRequestLabel.text = "lat: \(user_lat)\nlng: \(user_long)"
-        }.catch {error in
+            let userLat = String(format: "%f", location.coordinate.latitude)
+            let userLong = String(format: "%f", location.coordinate.longitude)
+            self.locationRequestLabel.text = "lat: \(userLat)\nlng: \(userLong)"
+        }.catch { _ in
             self.locationRequestLabel.text = "cannot fetch location"
         }
-        
+
     }
-    
+
     @IBAction func didUpdateInterface(_ sender: AnyObject) {
 
         distanceFilterLabel.text = "Distance (\(Int(distanceFilterSlider.value))m)"
         minimumIntervalLabel.text = "Minimum interval (\(Int(minimumIntervalSlider.value))s)"
-        maximumIntervalLabel.text = "Minimum interval (\(Int(maximumIntervalSlider.value))s) – forces call even without new location"
+        maximumIntervalLabel.text = """
+            Minimum interval (\(Int(maximumIntervalSlider.value))s) –
+            forces call even without new location
+        """
         updateValuesAndInitializeObserver()
     }
-    
+
     @objc func updateValuesAndInitializeObserver() {
 
         if let currentObserver = self.observer {
@@ -67,6 +69,9 @@ class ViewController: UIViewController {
         let minimumTimeInterval: Double? = minimumIntervalSlider.value == 0 ? nil : Double(minimumIntervalSlider.value)
         let maximumTimeInterval: Double? = maximumIntervalSlider.value == 0 ? nil : Double(maximumIntervalSlider.value)
 
-        LocationManager.add(locationObserver: observer, distanceFilter: Double(distanceFilterSlider.value), minimumTimeInterval: minimumTimeInterval, maximumTimeInterval: maximumTimeInterval)
+        LocationManager.add(locationObserver: observer,
+                            distanceFilter: Double(distanceFilterSlider.value),
+                            minimumTimeInterval: minimumTimeInterval,
+                            maximumTimeInterval: maximumTimeInterval)
     }
 }

@@ -24,8 +24,15 @@ class LocationObserverItem: NSObject {
     @objc var newLocationForUpdate: CLLocation?
     @objc var minimumTimer: Timer?
     @objc var maximumTimer: Timer?
-    
-    init(locationObserver: LocationObserver, locationManager: LocationManager, desiredAccuracy: CLLocationAccuracy?, distanceFilter: CLLocationDistance?, minimumTimeInterval: TimeInterval?, maximumTimeInterval: TimeInterval?) {
+
+    init(
+        locationObserver: LocationObserver,
+        locationManager: LocationManager,
+        desiredAccuracy: CLLocationAccuracy?,
+        distanceFilter: CLLocationDistance?,
+        minimumTimeInterval: TimeInterval?,
+        maximumTimeInterval: TimeInterval?
+    ) {
 
         observer = locationObserver
         self.locationManager = locationManager
@@ -33,29 +40,33 @@ class LocationObserverItem: NSObject {
         self.distanceFilter = distanceFilter
         self.minimumTimeInterval = minimumTimeInterval
         self.maximumTimeInterval = maximumTimeInterval
-        
+
         super.init()
-        
+
         initializeTimers()
     }
-    
+
     @objc func invalidate() {
         deinitializeTimers()
     }
-    
+
     @objc func validate(location: CLLocation) -> Bool {
 
-        if let desiredAccuracy = desiredAccuracy , desiredAccuracy < location.horizontalAccuracy || desiredAccuracy < location.verticalAccuracy {
+        if let desiredAccuracy = desiredAccuracy,
+           desiredAccuracy < location.horizontalAccuracy ||
+           desiredAccuracy < location.verticalAccuracy {
             return false
         }
 
-        if let distanceFilter = distanceFilter , let previousLocation = previousLocation , previousLocation.distance(from: location) <= distanceFilter {
+        if let distanceFilter = distanceFilter,
+           let previousLocation = previousLocation,
+           previousLocation.distance(from: location) <= distanceFilter {
             return false
         }
 
         return true
     }
-    
+
     @objc func update(location: CLLocation?) {
 
         guard let location = location, validate(location: location) else {
@@ -72,9 +83,9 @@ class LocationObserverItem: NSObject {
             }
         }
     }
-    
-    // Mark: - Timer methods
-    
+
+    // MARK: - Timer methods
+
     @objc func deinitializeTimers() {
 
         minimumTimer?.invalidate()
@@ -82,32 +93,44 @@ class LocationObserverItem: NSObject {
         maximumTimer?.invalidate()
         maximumTimer = nil
     }
-    
+
     @objc func initializeTimers() {
 
         if let interval = minimumTimeInterval {
-            minimumTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(minimumTimerTick), userInfo: nil, repeats: true)
+            minimumTimer = Timer.scheduledTimer(
+                timeInterval: interval,
+                target: self,
+                selector: #selector(minimumTimerTick),
+                userInfo: nil,
+                repeats: true
+            )
         }
 
         if let interval = maximumTimeInterval {
-            maximumTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(maximumTimerTick), userInfo: nil, repeats: true)
+            maximumTimer = Timer.scheduledTimer(
+                timeInterval: interval,
+                target: self,
+                selector: #selector(maximumTimerTick),
+                userInfo: nil,
+                repeats: true
+            )
         }
     }
-    
+
     @objc func minimumTimerTick() {
 
         if let location = newLocationForUpdate {
             updateLocationFromTimer(location)
         }
     }
-    
+
     @objc func maximumTimerTick() {
 
         if let location = newLocationForUpdate ?? previousLocation {
             updateLocationFromTimer(location)
         }
     }
-    
+
     @objc func updateLocationFromTimer(_ location: CLLocation) {
 
         observer.didUpdate(manager: locationManager, newLocation: location)
@@ -116,6 +139,6 @@ class LocationObserverItem: NSObject {
     }
 }
 
-func ==(llo: LocationObserverItem, rlo: LocationObserverItem) -> Bool {
+func == (llo: LocationObserverItem, rlo: LocationObserverItem) -> Bool {
     return llo === rlo
 }

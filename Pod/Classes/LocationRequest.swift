@@ -7,7 +7,6 @@
 //
 //
 
-
 import CoreLocation
 
 typealias LocationCompletion = (CLLocation?) -> Void
@@ -19,21 +18,32 @@ class LocationRequest: NSObject {
     var desiredAccuracy: CLLocationAccuracy?
     var timeout: TimeInterval?
     @objc var timer: Timer?
-    
-    init(timeout: TimeInterval?, desiredAccuracy: CLLocationAccuracy?, completion: @escaping LocationCompletion, locationManager: LocationManager) {
+
+    init(
+        timeout: TimeInterval?,
+        desiredAccuracy: CLLocationAccuracy?,
+        completion: @escaping LocationCompletion,
+        locationManager: LocationManager
+    ) {
 
         self.completion = completion
         self.timeout = timeout
         self.desiredAccuracy = desiredAccuracy
         self.locationManager = locationManager
-        
+
         super.init()
-        
+
         if let timeout = timeout {
-            self.timer = Timer.scheduledTimer(timeInterval: timeout, target: self, selector: #selector(didTimeout), userInfo: nil, repeats: false)
+            self.timer = Timer.scheduledTimer(
+                timeInterval: timeout,
+                target: self,
+                selector: #selector(didTimeout),
+                userInfo: nil,
+                repeats: false
+            )
         }
     }
-    
+
     @objc func validate(location: CLLocation) -> Bool {
 
         if location.timestamp.timeIntervalSinceNow < -(self.timeout ?? 30) {
@@ -46,7 +56,7 @@ class LocationRequest: NSObject {
 
         return true
     }
-    
+
     @objc func completeWith(location: CLLocation?, force: Bool = false) -> Bool {
 
         if !force {
@@ -61,7 +71,7 @@ class LocationRequest: NSObject {
 
         return true
     }
-    
+
     @objc func didTimeout() {
 
         _ = completeWith(location: locationManager.lastKnownLocation, force: true)
@@ -69,6 +79,6 @@ class LocationRequest: NSObject {
     }
 }
 
-func ==(lhs: LocationRequest, rhs: LocationRequest) -> Bool {
+func == (lhs: LocationRequest, rhs: LocationRequest) -> Bool {
     return lhs === rhs
 }

@@ -29,7 +29,8 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '11.0'
   s.requires_arc = true
-
+  s.swift_version = '4.2'
+  
   s.source_files = 'Pod/Classes/**/*'
   s.resource_bundles = {
     'LocationManager' => ['Pod/Assets/*.png']
@@ -37,5 +38,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'PromiseKit', '~> 6.0'
+  s.dependency 'PromiseKit', '~> 6.7'
 end
