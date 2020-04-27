@@ -32,9 +32,6 @@ Pod::Spec.new do |s|
   s.swift_version = '4.2'
   
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'LocationManager' => ['Pod/Assets/*.png']
-  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
