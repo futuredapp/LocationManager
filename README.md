@@ -1,6 +1,5 @@
 # LocationManager
 
-[![CI Status](http://img.shields.io/travis/Jakub Knejzlik/LocationManager.svg?style=flat)](https://travis-ci.org/Jakub Knejzlik/LocationManager)
 [![Version](https://img.shields.io/cocoapods/v/LocationManager.svg?style=flat)](http://cocoapods.org/pods/LocationManager)
 [![License](https://img.shields.io/cocoapods/l/LocationManager.svg?style=flat)](http://cocoapods.org/pods/LocationManager)
 [![Platform](https://img.shields.io/cocoapods/p/LocationManager.svg?style=flat)](http://cocoapods.org/pods/LocationManager)
@@ -20,7 +19,7 @@ it, simply add the following line to your Podfile:
 pod "LocationManager"
 ```
 
-## Example 
+## Example
 
 ### Getting current location
 
@@ -70,10 +69,10 @@ When using location observing, you can use these parameters:
 
 ## Distance Filter and Desired Accuracy
 
-`LocationManager` efficiently uses filter and accuracy of all requests and observers and calculates maximum required values to prevent battery draining. 
+`LocationManager` efficiently uses filter and accuracy of all requests and observers and calculates maximum required values to prevent battery draining.
 
-For example if you have two observers with 50m and 100m distance filter, the overall distance filter would be 50m. When you remove the observer with 50m filter, the overall distance filter is recalculated to maximum required value (which is 100m). The same applies to `desiredAccuracy`.
+For example if you have two observers with 50 m and 100 m distance filter, the overall distance filter would be 50 m. When you remove the observer with 50 m filter, the overall distance filter is recalculated to maximum required value (which is 100 m). The same applies to `desiredAccuracy`.
 
 ## License
 
-LocationManager is available under the MIT license. See the LICENSE file for more info.
+LocationManager is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
