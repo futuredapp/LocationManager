@@ -4,6 +4,9 @@
 [![License](https://img.shields.io/cocoapods/l/LocationManager.svg?style=flat)](http://cocoapods.org/pods/LocationManager)
 [![Platform](https://img.shields.io/cocoapods/p/LocationManager.svg?style=flat)](http://cocoapods.org/pods/LocationManager)
 
+**Deprecation notice: The project is no longer under active development. Please seek other methods like
+[PromiseKit/CoreLocation](https://github.com/PromiseKit/CoreLocation).**
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
