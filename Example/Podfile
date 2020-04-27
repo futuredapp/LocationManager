@@ -4,8 +4,8 @@ platform :ios, '11.0'
 
 target 'LocationManager_Example' do
   pod 'LocationManager', :path => '../'
-  pod 'PromiseKit', '~> 6.7'
-  pod 'SwiftLint', '0.29.2'
+  pod 'PromiseKit', '~> 6.11'
+  pod 'SwiftLint'
 end
 
 target 'LocationManager_Tests' do
