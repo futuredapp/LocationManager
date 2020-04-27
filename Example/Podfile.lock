@@ -1,24 +1,24 @@
 PODS:
-  - LocationManager (2.0.1):
-    - PromiseKit (~> 6.7)
-  - PromiseKit (6.7.1):
-    - PromiseKit/CorePromise (= 6.7.1)
-    - PromiseKit/Foundation (= 6.7.1)
-    - PromiseKit/UIKit (= 6.7.1)
-  - PromiseKit/CorePromise (6.7.1)
-  - PromiseKit/Foundation (6.7.1):
+  - LocationManager (2.1.0):
+    - PromiseKit (~> 6.11)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.7.1):
+  - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
-  - SwiftLint (0.29.2)
+  - SwiftLint (0.39.2)
 
 DEPENDENCIES:
   - LocationManager (from `../`)
-  - PromiseKit (~> 6.7)
-  - SwiftLint (= 0.29.2)
+  - PromiseKit (~> 6.11)
+  - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - PromiseKit
     - SwiftLint
 
@@ -27,10 +27,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LocationManager: 390c350563ba026b656160c3145e88de4c5e766d
-  PromiseKit: ef376fb8b4e92edfeb66bd403b983eaa07fbde0c
-  SwiftLint: 47df60bdea6e7e902b193b6596db8683aafd86a3
+  LocationManager: cd2347a717aa8eb14844bd2b50f3b554da0ca487
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 3d536b40dd8629fe3178cde38f10e084379d91da
+PODFILE CHECKSUM: 3a66121934c432e20fbf3d301980f9b37b75179c
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.9.1
