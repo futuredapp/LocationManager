@@ -1,12 +1,3 @@
-//
-//  LocationCompletionQueue.swift
-//  Pods
-//
-//  Created by Aleš Kocur on 20/05/15.
-//  Copyright © 2015 The Funtasty. All rights reserved.
-//
-//
-
 import CoreLocation
 
 typealias LocationCompletion = (CLLocation?) -> Void
