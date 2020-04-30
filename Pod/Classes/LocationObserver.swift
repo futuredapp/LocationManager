@@ -1,11 +1,3 @@
-//
-//  LocationObserver.swift
-//  Pods
-//
-//  Created by Jakub Knejzlik on 25/02/16.
-//
-//
-
 import CoreLocation
 
 public protocol LocationObserver: AnyObject {
